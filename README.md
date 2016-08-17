@@ -1,10 +1,19 @@
 Report Builder Prototype
 ========================
 
+Installation
+------------
+
+Create a virtualenv that uses Python 3, because we can:
+
+    $ mkvirtualenv -p python3 rb_proto
+
+
 Start The Server
 ----------------
 
-    $ PYTHONPATH=src src/rb_proto/server.py
+    $ workon rb_proto
+    (rb_proto) $ PYTHONPATH=src src/rb_proto/server.py
 
 
 Design Spec
