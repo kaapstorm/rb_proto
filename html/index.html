@@ -21,7 +21,7 @@
 
       <div id="columns">
         <h3>Columns</h3>
-        <select data-bind="options: allColumns,
+        <select data-bind="options: columns,
                            selectedOptions: selectedColumns,
                            optionsText: 'label'"
                 size="5"
@@ -59,8 +59,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.6/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/b-html5-1.2.2/b-print-1.2.2/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-    <script type="text/javascript" src="/static/js/underscore-min.js"></script>
-    <script type="text/javascript" src="/static/js/rb_proto.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/rb_proto.js"></script>
 
     <script type="text/javascript">
       var COLUMNS = [
@@ -69,44 +69,25 @@
           {"name": "num_ep_feat", "label": "Number of episodes featuring", "type": "integer"},
       ];
 
-      var DATA = [
-          {
-              "name": "Dustin",
-              "superpower": "logic",
-              "num_ep_feat": 8,
-          },
-          {
-              "name": "Eleven",
-              "superpower": "psychokinesis",
-              "num_ep_feat": 8,
-          },
-          {
-              "name": "Lucas",
-              "superpower": "courage",
-              "num_ep_feat": 8,
-          },
-          {
-              "name": "Mike",
-              "superpower": "compassion",
-              "num_ep_feat": 8,
-          },
-          {
-              "name": "Will",
-              "superpower": "survival",
-              "num_ep_feat": 7,
-          },
+      var ROWS = [
+          ["Dustin", "logic", 8],
+          ["Eleven", "psychokinesis", 8],
+          ["Lucas", "courage", 8],
+          ["Mike", "compassion", 8],
+          ["Will", "survival", 7]
       ];
 
       $(document).ready(function() {
 
           var reportConfig = new rbProto.ReportConfig({
-              "columns": columns
+              "columns": COLUMNS,
+              "rows": ROWS,
           });
           ko.applyBindings(reportConfig);
 
           $('#preview').DataTable({
-              "data": DATA,
-              "columns": _.map(COLUMNS, function (column) { return {"title": column["label"]}; })
+              "data": ROWS,
+              "columns": rbProto.getColumnTitles(COLUMNS)
           });
       });
     </script>
