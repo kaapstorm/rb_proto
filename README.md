@@ -13,7 +13,15 @@ Start The Server
 ----------------
 
     $ workon rb_proto
-    (rb_proto) $ PYTHONPATH=src src/rb_proto/server.py
+    (rb_proto) $ export PYTHONPATH=src 
+    (rb_proto) $ src/rb_proto/server.py
+
+or, run the Flask debug server:
+
+    (rb_proto) $ export PYTHONPATH=src 
+    (rb_proto) $ export FLASK_APP=rb_proto.server 
+    (rb_proto) $ export FLASK_DEBUG=1 
+    (rb_proto) $ flask run
 
 
 Design Spec
