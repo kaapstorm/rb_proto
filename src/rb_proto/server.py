@@ -2,7 +2,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 import json
-from flask import Flask
+from flask import Flask, render_template
 from werkzeug.contrib.cache import SimpleCache
 from rb_proto.const import CASES
 
@@ -24,7 +24,7 @@ def index():
     """
     Report Builder Prototype index page
     """
-    return 'Report Builder Prototype'
+    return render_template('index.html')
 
 
 @app.route('/preview/')
@@ -32,7 +32,7 @@ def preview():
     """
     Report Builder Prototype async live preview
     """
-    return json.dumps(get_cases())
+    return json.dumps({'data': get_cases()})
 
 
 if __name__ == '__main__':
