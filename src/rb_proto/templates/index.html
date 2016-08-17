@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Report Builder Prototype</title>
+
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/datatables.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="config" class="col-md-4">
+      <div id="columns">
+        <h3>Columns</h3>
+        <ul>
+          <li>name</li>
+          <li>superpowers</li>
+          <li>num_ep_feat</li>
+        </ul>
+      </div>
+
+      <div id="group_by">
+        <h3>Group By</h3>
+        <select>
+          <option>(One row per item)</option>
+          <option>name</option>
+          <option>superpowers</option>
+          <option>num_ep_feat</option>
+        </select>
+      </div>
+
+      <div id="graph">
+        <h3>Graph</h3>
+        <ul>
+          <li>Bar Chart</li>
+          <li>Pie Chart</li>
+          <li>None</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="preview" class="col-md-4">
+
+    </div>
+
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#preview').DataTable( {
+              "ajax": "http://127.0.0.1:5000/preview/",
+              "columns": [
+                  { "data": "name" },
+                  { "data": "superpowers" },
+                  { "data": "num_ap_feat" }
+              ]
+          } );
+      } );
+    </script>
+  </body>
+</html>
