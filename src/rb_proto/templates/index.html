@@ -18,26 +18,17 @@
   </head>
   <body>
     <div id="config" class="col-md-4 well">
+
       <div id="columns">
         <h3>Columns</h3>
-        <ul>
-          <li>name</li>
-          <li>superpowers</li>
-          <li>num_ep_feat</li>
-        </ul>
+        <select data-bind="options: allColumns,
+                           selectedOptions: selectedColumns,
+                           optionsText: 'label'"
+                size="5"
+                multiple="multiple"></select>
       </div>
 
-      <div id="group_by">
-        <h3>Group By</h3>
-        <select>
-          <option>(One row per item)</option>
-          <option>name</option>
-          <option>superpowers</option>
-          <option>num_ep_feat</option>
-        </select>
-      </div>
-
-      <div id="graph">
+      <div id="graphSelect" data-bind="visible: shouldShowGraphSelect">
         <h3>Graph</h3>
         <ul>
           <li>Bar Chart</li>
@@ -45,27 +36,77 @@
           <li>None</li>
         </ul>
       </div>
+
+      <div id="groupBy" data-bind="visible: shouldShowGroupBy">
+        <h3>Group By</h3>
+        <select>
+          <option selected="selected">(One row per item)</option>
+          <option>name</option>
+          <option>superpowers</option>
+          <option>num_ep_feat</option>
+        </select>
+      </div>
+
     </div>
 
     <div class="col-md-8 well">
       <h3>Sample Preview</h3>
-      <table id="preview" ></table>
+      <table id="preview"></table>
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script><!-- "Bootstrap's JavaScript requires jQuery version 1.9.1 or higher, but lower than version 3" -->
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.6/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/b-html5-1.2.2/b-print-1.2.2/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script type="text/javascript" src="/static/js/underscore-min.js"></script>
+    <script type="text/javascript" src="/static/js/rb_proto.js"></script>
 
     <script type="text/javascript">
+      var COLUMNS = [
+          {"name": "name", "label": "Name", "type": "text"},
+          {"name": "superpower", "label": "Superpower", "type": "text"},
+          {"name": "num_ep_feat", "label": "Number of episodes featuring", "type": "integer"},
+      ];
+
+      var DATA = [
+          {
+              "name": "Dustin",
+              "superpower": "logic",
+              "num_ep_feat": 8,
+          },
+          {
+              "name": "Eleven",
+              "superpower": "psychokinesis",
+              "num_ep_feat": 8,
+          },
+          {
+              "name": "Lucas",
+              "superpower": "courage",
+              "num_ep_feat": 8,
+          },
+          {
+              "name": "Mike",
+              "superpower": "compassion",
+              "num_ep_feat": 8,
+          },
+          {
+              "name": "Will",
+              "superpower": "survival",
+              "num_ep_feat": 7,
+          },
+      ];
+
       $(document).ready(function() {
+
+          var reportConfig = new rbProto.ReportConfig({
+              "columns": columns
+          });
+          ko.applyBindings(reportConfig);
+
           $('#preview').DataTable({
-              "ajax": "/preview/",
-              "columns": [
-                  { "data": "name" },
-                  { "data": "superpowers" },
-                  { "data": "num_ep_feat" }
-              ]
+              "data": DATA,
+              "columns": _.map(COLUMNS, function (column) { return {"title": column["label"]}; })
           });
       });
     </script>
