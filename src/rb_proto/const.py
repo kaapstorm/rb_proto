@@ -2,6 +2,13 @@
 from __future__ import unicode_literals
 
 
+COLUMNS = [
+    {'name': 'name', 'label': 'Name', 'type': 'text'},
+    {'name': 'superpowers', 'label': 'Superpowers', 'type': 'array'},
+    {'name': 'num_ep_feat', 'label': 'Number of episodes featuring', 'type': 'integer'},
+]
+
+
 CASES = [
     {
         'name': 'Dustin',
@@ -10,7 +17,7 @@ CASES = [
     },
     {
         'name': 'Eleven',
-        'superpowers': ['psychokinesis', 'astral projection', 'reason'],
+        'superpowers': ['psychokinesis', 'astral_projection', 'reason'],
         'num_ep_feat': 8,
     },
     {
@@ -25,7 +32,7 @@ CASES = [
     },
     {
         'name': 'Will',
-        'superpowers': ['survival', 'best80shaircut'],
+        'superpowers': ['misfortune', 'survival', 'best_80s_haircut'],
         'num_ep_feat': 7,
     },
 ]

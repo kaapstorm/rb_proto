@@ -35,5 +35,9 @@ Endpoints
 
 * Landing page: <http://127.0.0.1:5000/>
 * Async live preview: <http://127.0.0.1:5000/preview/>
+* API: 
+  * <http://127.0.0.1:5000/api/1/columns/> (GET, POST)
+  * <http://127.0.0.1:5000/api/1columns/NAME/> (GET, DELETE)
+  * <http://127.0.0.1:5000/api/1columns/all_/> (GET, DELETE)
 
 
