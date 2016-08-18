@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+        <title>
+            Create New Report - CommCare HQ
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="content-language" content="en">
+
+        <!--<script src="js/c1b1992c1c.js" type="text/javascript"></script>-->
+        <!--<script src="js/nr-971.js"></script>-->
+        <script src="js/cd451ba27fd7233e6e0c660a2184ff34560ea749.js" async="" type="text/javascript"></script>
+        <script src="js/i.js" async="" type="text/javascript"></script>
+        <script src="js/503070.js" id="hs-analytics"></script>
+        <script src="js/analytics.js" async=""></script>
+
+        <link rel="shortcut icon" href="https://dnwn0mt1jqwp0.cloudfront.net/static/style/img/favicon.png?version=bd1fede">
+        <link type="application/opensearchdescription+xml" rel="search" href="https://www.commcarehq.org/searchDescription.xml" title="CommCare HQ">
+        <link rel="stylesheet" href="css/3161d0097374.css" type="text/css" media="all">
+        <link rel="stylesheet" href="css/ffee75f4f30b.css" type="text/css" media="all">
+        <link rel="stylesheet" href="css/8128136ce052.css" type="text/css">
+        <link rel="stylesheet" href="css/d6865a51511c.css" type="text/css" media="all">
+        <link rel="stylesheet" href="css/1e5f3b2ed80b.css" type="text/css" media="all">
+        <link rel="stylesheet" href="css/2b529b594699.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/e0d147a2319d.css" type="text/css" media="all">
+
+        <script type="text/javascript" src="js/97880d7bbf2b.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/96ad7d739c30.js"></script>
+        <style>
+            #map-container {
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- .hide used for A/B test of account creation page -->
+        <div class="hq-container">
+            <div id="hq-navigation" class="navbar navbar-default navbar-static-top navbar-hq-main-menu">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav collapse-fullmenu-toggle" id="hq-fullmenu-responsive" role="menu">
+                        <li>
+                            <a href="#hq-full-menu" data-toggle="collapse">
+                                <i class="fa fa-bars"></i>
+                                Menu
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-header hq-header">
+                        <a href="#" class="navbar-brand">
+                                <!-- navbar.less supplies the default logo -->
+                                <div></div>
+                        </a>
+                    </div>
+                    <ul class="nav navbar-nav collapse-mainmenu-toggle" id="hq-mainmenu-responsive" role="menu">
+                        <li>
+                            <a href="#hq-main-tabs" data-toggle="collapse">
+                                <i class="fa fa-bars"></i>
+                                Menu
+                            </a>
+                        </li>
+                    </ul>
+                    <nav class="navbar-menus fullmenu collapse" id="hq-full-menu" role="navigation">
+                        <div class="nav-settings-bar pull-right">
+<ul class="nav navbar-nav" role="menu">
+    <li class="dropdown">
+        <a href="#" id="settingsmenu-projectSettings" class="dropdown-toggle dropdown-toggle-with-icon" data-toggle="dropdown">
+            <i class="fa fa-cog nav-main-icon"></i> <span class="responsive-label">Manage</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <li class="dropdown-header nav-header">Logged in As</li>
+            <li class="nav-login-header">
+                <div class="login-container">
+                    <p>
+                            Norman Hooper
+                            <br>nhooper@dimagi.com
+                    </p>
+                        <div class="label label-default">
+                            Admin
+                        </div>
+                </div>
+            </li>
+            <li class="nav-divider divider"></li>
+            <li class="dropdown-header nav-header">Manage Project</li>
+            <li>
+                <a href="#" id="menuitem-projectsettings">
+                    <i class="fa fa-cogs icon-cogs dropdown-icon"></i> Project Settings
+                </a>
+            </li>
+            <li>
+                <a href="#" id="menuitem-currentsubscription">
+                    <i class="fa fa-dashboard icon-dashboard dropdown-icon"></i> Current Subscription
+                </a>
+            </li>
+            <li class="nav-divider divider"></li>
+            <li class="dropdown-header nav-header">Manage Account</li>
+            <li>
+                <a href="#" id="menuitem-accountsettings">
+                    <i class="fa fa-user icon-user dropdown-icon"></i> My Account Settings
+                </a>
+            </li>
+            <li>
+                <a href="#" id="menuitem-signout">
+                    <i class="icon-signout fa fa-sign-out"></i>
+                    Sign Out
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" id="settingsmenu-help" class="dropdown-toggle dropdown-toggle-with-icon" data-toggle="dropdown">
+            <i class="fa fa-question-circle nav-main-icon"></i> <span class="responsive-label">Help &amp; Resources</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <li class="dropdown-header nav-header">CommCare Help</li>
+            <li>
+                <a href="#" id="menuitem-helpsite" target="_blank">
+                    <i class="fa fa-question-circle icon-question-sign dropdown-icon"></i> Visit the Help Site
+                </a>
+            </li>
+            <li>
+                <a href="#" id="menuitem-userforum" target="_blank">
+                    <i class="fa fa-comments icon-comments dropdown-icon"></i> User Forum
+                </a>
+            </li>
+            <li>
+                <a href="#modalReportIssue" data-toggle="modal" id="menuitem-issue">
+                    <i class="fa fa-exclamation-triangle icon-warning-sign dropdown-icon"></i> Report an Issue
+                </a>
+            </li>
+        </ul>
+    </li>
+<li id="js-settingsmenu-notifications" class="dropdown">
+    <a href="#" class="dropdown-toggle dropdown-toggle-with-icon" data-toggle="dropdown" id="notification-icon">
+        <i class="icon-bell-alt fa fa-bell nav-main-icon"></i>
+        <span class="responsive-label">Notifications</span>
+    </a>
+</li>
+    <li id="settingsmenu-project" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="responsive-label">Project:</span>
+                        nhooper
+            <b class="caret"></b>
+        </a>
+<ul class="dropdown-menu dropdown-menu-right" role="menu">
+    <li class="dropdown-header nav-header">Change Project</li>
+        <li><a href="#">nhooper</a></li>
+        <li><a href="#">elru</a></li>
+        <li><a href="#">novartis-demo</a></li>
+     <li class="divider"></li>
+    <li>
+        <a href="#">
+            <i class="fa fa-plus icon-plus dropdown-icon"></i> Add Project
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="fa fa-exchange icon-exchange dropdown-icon"></i> CommCare Exchange
+        </a>
+    </li>
+</ul>
+    </li>
+</ul>
+                        </div>
+<ul class="nav navbar-nav mainmenu-tabs collapse" id="hq-main-tabs" role="menu">
+        <li id="mainmenu-DashboardTab" class="">
+            <a href="#">
+                Dashboard
+            </a>
+        </li>
+        <li id="mainmenu-ProjectReportsTab" class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Reports <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li class="nav-header dropdown-header">
+            My Saved Reports
+        </li>
+        <li>
+            <a href="#">
+            ECD Demo report
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            usercasedemo report
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Report Builder Reports
+        </li>
+        <li>
+            <a href="#">
+            Test Report
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Monitor Workers
+        </li>
+        <li>
+            <a href="#">
+            Worker Activity
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Daily Form Activity
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Submissions By Form
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Inspect Data
+        </li>
+        <li>
+            <a href="#">
+            Submit History
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Case List
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            View All
+            </a>
+        </li>
+                </ul>
+        </li>
+        <li id="mainmenu-ProjectDataTab" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Data <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li>
+            <a href="#">
+            Export Forms
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Export Cases
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            View All
+            </a>
+        </li>
+                </ul>
+        </li>
+        <li id="mainmenu-ProjectUsersTab" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Users <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li class="nav-header dropdown-header">
+            Application Users
+        </li>
+        <li>
+            <a href="#">
+            Mobile Workers
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Groups
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Project Users
+        </li>
+        <li>
+            <a href="#">
+            Web Users &amp; Roles
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Organization
+        </li>
+        <li>
+            <a href="#">
+            Organization Structure
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Organization Levels
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            View All
+            </a>
+        </li>
+                </ul>
+        </li>
+        <li id="mainmenu-ApplicationsTab" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Applications <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li class="nav-header dropdown-header">
+            My Applications
+        </li>
+        <li>
+            <a href="#" data-id="4975aa83c4007457d255810d69846fec">
+            Captopril
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="ba99c4b418b74d676bf2abba86fc25d8">
+            Case Management
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="cf9623375430c28e205f0fc6e3a6fd44">
+            Case Management + Search
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="84522852da567ad3437f4b9453b119fa">
+            Chores
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="0bcba6ad171023e013df7f8c98af99f1">
+            ECD Demo
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="46bd729f3a2c40f59b3735e96b592ab5">
+            Submodule Application
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="d1b5a2d23e4c6082bae02882a99c4d24">
+            usercasedemo
+            </a>
+        </li>
+        <li>
+            <a href="#" data-id="931e67c97aa5e47c8e6fd59fcd0d83da">
+            Wine App
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            New Application
+            </a>
+        </li>
+                </ul>
+        </li>
+        <li id="mainmenu-CloudcareTab" class="">
+            <a href="#">
+                CloudCare
+            </a>
+        </li>
+        <li id="mainmenu-MessagingTab" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Messaging <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li class="nav-header dropdown-header">
+            Messages
+        </li>
+        <li>
+            <a href="#">
+            Broadcast Messages
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Data Collection and Reminders
+        </li>
+        <li>
+            <a href="#">
+            Reminders
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Reminder Calendar
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            View All
+            </a>
+        </li>
+                </ul>
+        </li>
+        <li id="mainmenu-AdminTab" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Admin <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+        <li class="nav-header dropdown-header">
+            Reports
+        </li>
+        <li>
+            <a href="#">
+            Admin Reports
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            System Info
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Submission Map
+            </a>
+        </li>
+        <li class="nav-header dropdown-header">
+            Management
+        </li>
+        <li>
+            <a href="#">
+            Commands
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            SMS Connectivity &amp; Billing
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            Feature Flags
+            </a>
+        </li>
+        <li>
+            <a href="#">
+            CommCare Builds
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+            Django Admin
+            </a>
+        </li>
+                </ul>
+        </li>
+</ul>
+                    </nav>
+                </div>
+            </div>
+                <!--[if IE]>
+                    <div id="unsupported-browser" class="alert alert-error alert-block alert-full">
+                        <p><i class="fa fa-warning-sign"></i><strong>CommCare HQ does not work well with Internet Explorer.</strong></p>
+                        <p>
+                            We recommend
+                            <a href="#">Chrome</a>
+                            or <a href="#">Firefox</a>.
+                        </p>
+                    </div>
+                <![endif]-->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="message-alerts" class=""></div>
+                        </div>
+                    </div>
+                </div>
+<ol id="hq-breadcrumbs" class="breadcrumb breadcrumb-hq-section">
+    <li><a href="#"><strong>Report Builder</strong></a></li>
+    <li class="active">Select Report Type</li>
+</ol>
+    <div class="container-fluid">
+        <div class="row">
+            <div style="min-height: 638px;" id="hq-sidebar" class="col-xs-4 col-sm-3 col-lg-2 col-hq-sidebar nav-hq-sidebar">
+                <nav>
+    <h2 class="text-hq-nav-header">Tools</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="">
+                <a href="#">
+                    <i class="icon-tasks fa fa-tasks"></i>
+                    My Saved Reports
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Create Reports</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="active" id="create-new-report-left-nav">
+                <a href="#">
+                    <i class="icon-plus fa fa-plus"></i>
+                    Create new report
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Reports</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="">
+                <a href="#">
+                    Test Report
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Monitor Workers</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Worker Activity" data-content="Summary of form and case activity by user or group.">
+                    Worker Activity
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Daily Form Activity" data-content="Number of submissions per day.">
+                    Daily Form Activity
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Submissions By Form" data-content="Number of submissions by form.">
+                    Submissions By Form
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Form Completion Time" data-content="Statistics on time spent on a particular form.">
+                    Form Completion Time
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Case Activity" data-content="Followup rates on active cases.">
+                    Case Activity
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Form Completion vs. Submission Trends" data-content="Time lag between when forms were completed and when forms were successfully sent to CommCare HQ.">
+                    Form Completion vs. Submission Trends
+                </a>
+            </li>
+            <li class=" has-description">
+                <a href="#" class="js-report-description-popover popover-report" data-title="Worker Activity Times" data-content="Graphical representation of when forms are completed or submitted.">
+                    Worker Activity Times
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Inspect Data</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="">
+                <a href="#">
+                    Submit History
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Case List
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Manage Deployments</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="">
+                <a href="#">
+                    Application Status
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Raw Forms, Errors &amp; Duplicates
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Device Log Details
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    User Sync History
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Application Error Report
+                </a>
+            </li>
+    </ul>
+    <h2 class="text-hq-nav-header">Messaging</h2>
+    <ul class="nav nav-hq-sidebar">
+            <li class="">
+                <a href="#">
+                    SMS Usage
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Messaging History
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Message Log
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    SMS Opt Out Report
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Call Log
+                </a>
+            </li>
+            <li class="">
+                <a href="#">
+                    Expected Callbacks
+                </a>
+            </li>
+    </ul>
+</nav>
+            </div>
+            <div id="hq-content" class="col-xs-8 col-sm-9 col-lg-10">
+                <div class="spacer"></div>
+        <div class="ng-scope" ng-app="dashboardApp">
+
+
+
+    <!-- <rb_proto> -->
+    <div id="config" class="col-md-4">
+
+      <div id="columns">
+        <h3>Columns</h3>
+        <select data-bind="options: columns,
+                           selectedOptions: selectedColumns,
+                           optionsText: 'label'"
+                size="5"
+                multiple="multiple"></select>
+      </div>
+
+      <div id="graphSelect" data-bind="visible: shouldShowGraphSelect">
+        <h3>Graph</h3>
+        <ul>
+          <li>Bar Chart</li>
+          <li>Pie Chart</li>
+          <li>None</li>
+        </ul>
+      </div>
+
+      <div id="groupBy" data-bind="visible: shouldShowGroupBy">
+        <h3>Group By</h3>
+        <select>
+          <option selected="selected">(One row per item)</option>
+          <option>name</option>
+          <option>superpowers</option>
+          <option>num_ep_feat</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-md-8 well">
+      <h3>Sample Preview</h3>
+      <table id="preview"></table>
+    </div>
+    <!-- </rb_proto> -->
+
+
+
+        </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        <footer>
+            <nav id="hq-footer" role="navigation" class="navbar navbar-inverse navbar-hq-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="#" class="footer-link-img">
+                                <img src="img/commcare-flower-footer.png" alt="CommCare" height="30">
+                            </a>
+                            <a href="#" class="footer-link-img">
+                                <img src="img/dimagi-footer.png" alt="Powered by Dimagi, Inc." height="20">
+                            </a>
+                        &nbsp;
+                                <a href="#">CommCare HQ</a>
+                                is copyright ©
+                            2016
+                            <a href="#">Dimagi, Inc.</a>
+                                &nbsp;|&nbsp;
+                                <a href="#">Learn more about CommCare HQ</a>
+                            &nbsp;|&nbsp;
+                            <a href="#">Read CommCare HQ's End User License Agreement</a>
+                            &nbsp;|&nbsp;
+                            <a href="#">Privacy</a>
+                            &nbsp;|&nbsp;
+                            <a href="#">Product Subscription Agreement</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+        <script src="js/djangojs.js"></script>
+        <script type="text/javascript" src="js/f8ef4634ad59.js"></script>
+        <!--<script src="js/NotificationsService.js"></script>-->
+        <script type="text/javascript" src="js/272b0ec0ab44.js"></script>
+        <!--<script type="text/javascript" src="js/93b99b676509.js"></script>-->
+        <script type="text/javascript" src="js/d5f38f0c37db.js"></script>
+        <script type="text/javascript" src="js/a82d1e64f38a.js"></script>
+            <script src="js/toggles.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/choice-list-api.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/maps.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/maps_utils.js"></script>
+    <script src="js/main.js"></script>
+    <!--<script src="js/hq_dashboard.js"></script>-->
+    <div class="modal fade" id="modalReportIssue">
+        <div class="modal-dialog">
+            <form id="hqwebapp-bugReportForm" action="/bug_report/" method="post" enctype="multipart/form-data" role="form">
+                <input name="csrfmiddlewaretoken" value="OyV1Ty0cH8kTmRR85Qo6KeNwPgJVZK5m" type="hidden">
+                <input id="bug-report-url" name="url" type="hidden">
+                <input id="bug-report-username" name="username" value="nhooper@dimagi.com" type="hidden">
+                <input id="bug-report-domain" name="domain" value="nhooper" type="hidden">
+                <input id="bug-report-app_id" name="app_id" value="" type="hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Report an Issue with CommCare HQ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group" id="bug-report-subject-form-group">
+                            <label for="bug-report-subject" class="col-sm-3 control-label">Short Description</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" name="subject" id="bug-report-subject" placeholder="One Sentence Description of Issue" type="text">
+                                <span class="label label-danger hide">
+                                        <i class="fa fa-warning"></i> Please give us some information about the issue
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bug-report-message" class="col-sm-3 control-label">Full Description</label>
+                            <div class="col-sm-9">
+                                <textarea name="message" class="form-control" id="bug-report-message" rows="3" placeholder="Please try to include as much information as possible."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" id="bug-report-cc-form-group">
+                            <label for="bug-report-cc" class="col-sm-3 control-label">Other recipients (optional)</label>
+                            <div class="col-sm-9">
+                                <input name="cc" class="form-control" id="bug-report-cc" placeholder="ex: admin@commcarehq.org, test@commcarehq.org" type="text">
+                                <p class="help-block">
+                                        Comma-separated email addresses of others you want to notify about this issue.
+                                    <span class="label label-danger hide">
+                                        <i class="fa fa-warning"></i> Incorrect Format
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bug-report-file" class="col-sm-3 control-label">Upload file</label>
+                            <div class="col-sm-9">
+                                <input id="bug-report-file" name="report_issue" type="file">
+                                <p class="help-block">
+                                    <i class="fa fa-warning"></i>
+                                        Do not upload a file containing individually identifiable data.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="bug-report-cancel" data-loading-text="Submitting Report..." data-error-text="Failed. Retry Issue Submission" data-success-text="Success! Back to CommCare HQ">
+                        Submit Report
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- <rb_proto> -->
+    <script type="text/javascript" src="js/rb_proto.js"></script>
+    <script type="text/javascript">
+      var COLUMNS = [
+          {"name": "name", "label": "Name", "type": "text"},
+          {"name": "superpower", "label": "Superpower", "type": "text"},
+          {"name": "num_ep_feat", "label": "Number of episodes featuring", "type": "integer"},
+      ];
+
+      var ROWS = [
+          ["Dustin", "logic", 8],
+          ["Eleven", "psychokinesis", 8],
+          ["Lucas", "courage", 8],
+          ["Mike", "compassion", 8],
+          ["Will", "survival", 7]
+      ];
+
+      $(document).ready(function() {
+
+          var reportConfig = new rbProto.ReportConfig({
+              "columns": COLUMNS,
+              "rows": ROWS,
+          });
+          ko.applyBindings(reportConfig);
+
+          $('#preview').DataTable({
+              "data": ROWS,
+              "columns": rbProto.getColumnTitles(COLUMNS)
+          });
+      });
+    </script>
+    <!-- </rb_proto> -->
+
+
+
+    </body>
+</html>
