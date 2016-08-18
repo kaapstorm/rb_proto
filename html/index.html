@@ -638,23 +638,26 @@
                 multiple="multiple"></select>
       </div>
 
-      <div id="graphSelect" data-bind="visible: shouldShowGraphSelect">
+      <div id="graphSelect">
         <h3>Graph</h3>
-        <ul>
-          <li>Bar Chart</li>
-          <li>Pie Chart</li>
-          <li>None</li>
-        </ul>
+        <span class="btn btn-default">
+            <input type="radio" value="bar" data-bind="checked: selectedGraph"/> <i class="fa fa-bar-chart" style="font-size: 2em;"></i>
+        </span>
+        <span class="btn btn-default">
+            <input type="radio" value="pie" data-bind="checked: selectedGraph"/> <i class="fa fa-pie-chart" style="font-size: 2em;"></i>
+        </span>
+        <span class="btn btn-default">
+            <input type="radio" value="none" data-bind="checked: selectedGraph"/> <i class="fa fa-table" style="font-size: 2em;"></i>
+        </span>
       </div>
 
       <div id="groupBy" data-bind="visible: shouldShowGroupBy">
         <h3>Group By</h3>
-        <select>
-          <option selected="selected">(One row per item)</option>
-          <option>name</option>
-          <option>superpowers</option>
-          <option>num_ep_feat</option>
-        </select>
+        <select data-bind="options: selectedColumns,
+                           selectedOptions: selectedGroupBy,
+                           optionsText: 'label'"
+                size="5"
+                multiple="multiple"></select>
       </div>
 
     </div>

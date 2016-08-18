@@ -24,14 +24,19 @@ var rbProto = function () {
             });
         }
 
-        self.shouldShowGraphSelect = ko.observable(false);
-        self.shouldShowGroupBy = ko.observable(false);
-
         self.selectedColumns = ko.observableArray(self.columns);
         self.selectedColumns.subscribe(function (newValue) {
-            self.shouldShowGraphSelect(true);
-            self.refreshPreview(newValue);
+//            self.refreshPreview(newValue);
         });
+
+        self.selectedGraph = ko.observable('none');
+        self.selectedGraph.subscribe(function (newValue) {
+//            self.refreshPreview(newValue);
+            self.shouldShowGroupBy(true);
+        });
+
+        self.shouldShowGroupBy = ko.observable(false);
+        self.selectedGroupBy = ko.observableArray(self.selectedColumns());
 
         return self;
     };
