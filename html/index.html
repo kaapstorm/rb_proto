@@ -793,24 +793,24 @@
           {"name": "num_ep_feat", "label": "Number of episodes featuring", "type": "integer"},
       ];
 
-      var ROWS = [
-          ["Dustin", "logic", 8],
-          ["Eleven", "psychokinesis", 8],
-          ["Lucas", "courage", 8],
-          ["Mike", "compassion", 8],
-          ["Will", "survival", 7]
-      ];
+      var DATA = [
+          {"name": "Dustin", "num_ep_feat": 8, "superpower": "logic"},
+          {"name": "Eleven", "num_ep_feat": 8, "superpower": "psychokinesis"},
+          {"name": "Lucas", "num_ep_feat": 8, "superpower": "courage"},
+          {"name": "Mike", "num_ep_feat": 8, "superpower": "compassion"},
+          {"name": "Will", "num_ep_feat": 7, "superpower": "survival"}
+      ]
 
       $(document).ready(function() {
 
           var reportConfig = new rbProto.ReportConfig({
               "columns": COLUMNS,
-              "rows": ROWS,
+              "data": DATA,
           });
           ko.applyBindings(reportConfig);
 
           $('#preview').DataTable({
-              "data": ROWS,
+              "data": rbProto.getRows(DATA, COLUMNS),
               "columns": rbProto.getColumnTitles(COLUMNS)
           });
       });
