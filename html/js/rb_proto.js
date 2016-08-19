@@ -39,13 +39,19 @@ var rbProto = function () {
             self.refreshPreview(newValue);
         });
 
-        self.selectedGraph = ko.observable('none');
+        self.selectedGraph = ko.observable('list');
         self.selectedGraph.subscribe(function (newValue) {
-            self.shouldShowGroupBy(true);
+            self.isGroupByEnabled(newValue !== "list");
+            self.isFormatEnabled(self.isGroupByEnabled() && self.selectedGroupBy().length > 0);
         });
 
-        self.shouldShowGroupBy = ko.observable(false);
-        self.selectedGroupBy = ko.observableArray(self.selectedColumns());
+        self.isGroupByEnabled = ko.observable(false);
+        self.selectedGroupBy = ko.observableArray([]);
+        self.selectedGroupBy.subscribe(function (newValue) {
+            self.isFormatEnabled(self.isGroupByEnabled() && self.selectedGroupBy().length > 0);
+        });
+
+        self.isFormatEnabled = ko.observable(false);
 
         return self;
     };
