@@ -24,6 +24,7 @@ var rbProto = function () {
         self.label = column["label"];
         self.data_type = column["data_type"];
         self.aggregation = ko.observable(column["aggregation"]);
+        self.isFormatEnabled = ko.observable(false);
 
         return self;
     };
@@ -46,16 +47,23 @@ var rbProto = function () {
         self.selectedGraph = ko.observable('list');
         self.selectedGraph.subscribe(function (newValue) {
             self.isGroupByEnabled(newValue !== "list");
-            self.isFormatEnabled(self.isGroupByEnabled() && self.selectedGroupBy().length > 0);
+            self.setIsFormatEnabled();
         });
 
         self.isGroupByEnabled = ko.observable(false);
         self.selectedGroupBy = ko.observableArray([]);
         self.selectedGroupBy.subscribe(function (newValue) {
-            self.isFormatEnabled(self.isGroupByEnabled() && self.selectedGroupBy().length > 0);
+            self.setIsFormatEnabled();
         });
 
         self.isFormatEnabled = ko.observable(false);
+        self.setIsFormatEnabled = function () {
+            var isFormatEnabled = self.isGroupByEnabled() && self.selectedGroupBy().length > 0;
+            self.isFormatEnabled(isFormatEnabled);
+            _.each(self.selectedColumns(), function (column) {
+                column.isFormatEnabled(isFormatEnabled && self.selectedGroupBy.indexOf(column) == -1);
+            });
+        };
 
         self.newColumnName = ko.observable('');
 
