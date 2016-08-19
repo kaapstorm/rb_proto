@@ -17,24 +17,28 @@ var rbProto = function () {
         });
     }
 
+    self.ReportColumn = function (column) {
+        var self = this;
+
+        self.name = column["name"];
+        self.label = column["label"];
+        self.data_type = column["data_type"];
+        self.aggregation = ko.observable(column["aggregation"]);
+
+        return self;
+    };
+
     /**
      * ReportConfig is a view model for managing report configuration
      */
-    self.ReportConfig = function (options) {
+    self.ReportConfig = function (config) {
         var self = this;
-        self.columns = options["columns"];
-        self.data = options["data"];
+        self.columns = config["columns"];
+        self.data = config["data"];
 
-        self.refreshPreview = function (columns) {
-            $('#preview').empty();
-            $('#preview').DataTable({
-                "destroy": true,  // Recreate the table with the new columns
-                "data": rbProto.getRows(self.data, columns),
-                "columns": rbProto.getColumnTitles(columns),
-            });
-        }
-
-        self.selectedColumns = ko.observableArray(self.columns);
+        self.selectedColumns = ko.observableArray(_.map(self.columns, function (column) {
+            return new rbProto.ReportColumn(column);
+        }));
         self.selectedColumns.subscribe(function (newValue) {
             self.refreshPreview(newValue);
         });
@@ -52,6 +56,44 @@ var rbProto = function () {
         });
 
         self.isFormatEnabled = ko.observable(false);
+
+        self.newColumnName = ko.observable('');
+
+        self.refreshPreview = function (columns) {
+            $('#preview').empty();
+            $('#preview').DataTable({
+                "destroy": true,  // Recreate the table with the new columns
+                "autoWidth": false,
+                // "ordering": false,
+                "paging": false,
+                "searching": false,
+                "data": rbProto.getRows(self.data, columns),
+                "columns": rbProto.getColumnTitles(columns),
+            });
+        }
+
+        self.removeColumn = function (column) {
+            self.selectedColumns.remove(column);
+        };
+
+        self.addColumn = function () {
+            var column = _.find(self.columns, function (c) {
+                return c["name"] == self.newColumnName();
+            });
+            self.selectedColumns.push(new rbProto.ReportColumn(column));
+            self.newColumnName('');
+        };
+
+        self.otherColumns = ko.computed(function () {
+            var names = _.map(self.selectedColumns(), function (c) { return c.name; });
+            return _.filter(self.columns, function (c) {
+                return !_.contains(names, c["name"]);
+            });
+        });
+
+        self.moreColumns = ko.computed(function () {
+            return self.otherColumns().length > 0;
+        });
 
         return self;
     };

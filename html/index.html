@@ -660,7 +660,8 @@
               <td>&nbsp;</td>
             </tr>
           </thead>
-          <tbody data-bind="foreach: selectedColumns">
+          <tbody>
+            <!-- ko foreach: selectedColumns -->
             <tr>
               <td data-bind="text: label"></td>
               <td>
@@ -671,11 +672,26 @@
                   <option value="count">Count Per Choice</option>
                 </select>
               </td>
-              <td><i class="fa fa-remove"></i></td>
+              <td>
+                  <button class="button" data-bind="click: $parent.removeColumn"><i class="fa fa-remove"></i></button>
+              </td>
             </tr>
+            <!-- /ko -->
+            <!-- ko if: moreColumns -->
+            <tr>
+              <td>
+                <select data-bind="options: otherColumns,
+                                   optionsText: 'label',
+                                   optionsValue: 'name',
+                                   value: newColumnName">
+                </select>
+              </td>
+              <td></td>
+              <td><button class="button" data-bind="click: addColumn"><i class="fa fa-plus"></i></button></td>
+            </tr>
+            <!-- /ko -->
           </tbody>
         </table>
-        <div><i class="fa fa-plus"></i></div>
       </div>
 
     </div>
@@ -777,15 +793,8 @@
               "data": DATA,
           });
           ko.applyBindings(reportConfig);
+          reportConfig.refreshPreview(COLUMNS);
 
-          $('#preview').DataTable({
-              "autoWidth": false,
-              "columns": rbProto.getColumnTitles(COLUMNS),
-              "data": rbProto.getRows(DATA, COLUMNS),
-              // "ordering": false,
-              "paging": false,
-              "searching": false,
-          });
       });
     </script>
     <!-- </rb_proto> -->
