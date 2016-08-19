@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="css/1e5f3b2ed80b.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/2b529b594699.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/e0d147a2319d.css" type="text/css" media="all">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css"/>-->
 
         <script type="text/javascript" src="js/97880d7bbf2b.js"></script>
         <script src="js/bootstrap.js"></script>
@@ -698,7 +698,7 @@
 
     <div class="col-md-8 well">
       <h3>Sample Preview</h3>
-      <table id="preview"></table>
+      <table id="preview" class="table"></table>
     </div>
     <!-- </rb_proto> -->
 
@@ -787,14 +787,20 @@
       ]
 
       $(document).ready(function() {
-
+          var dataTable = $('#preview').DataTable({
+              "autoWidth": false,
+              "ordering": false,
+              "paging": false,
+              "searching": false,
+              "data": rbProto.getRows(DATA, COLUMNS),
+              "columns": rbProto.getColumnTitles(COLUMNS),
+          });
           var reportConfig = new rbProto.ReportConfig({
               "columns": COLUMNS,
               "data": DATA,
+              "dataTable": dataTable,
           });
           ko.applyBindings(reportConfig);
-          reportConfig.refreshPreview(COLUMNS);
-
       });
     </script>
     <!-- </rb_proto> -->

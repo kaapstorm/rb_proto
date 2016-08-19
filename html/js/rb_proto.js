@@ -36,6 +36,7 @@ var rbProto = function () {
         var self = this;
         self.columns = config["columns"];
         self.data = config["data"];
+        self.dataTable = config["dataTable"];
 
         self.selectedColumns = ko.observableArray(_.map(self.columns, function (column) {
             return new rbProto.ReportColumn(column);
@@ -68,11 +69,11 @@ var rbProto = function () {
         self.newColumnName = ko.observable('');
 
         self.refreshPreview = function (columns) {
+            self.dataTable.destroy();
             $('#preview').empty();
-            $('#preview').DataTable({
-                "destroy": true,  // Recreate the table with the new columns
+            self.dataTable = $('#preview').DataTable({
                 "autoWidth": false,
-                // "ordering": false,
+                "ordering": false,
                 "paging": false,
                 "searching": false,
                 "data": rbProto.getRows(self.data, columns),
