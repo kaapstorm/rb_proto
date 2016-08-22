@@ -646,7 +646,6 @@
         <select data-bind="options: selectedColumns,
                            selectedOptions: selectedGroupBy,
                            optionsText: 'label'"
-                size="5"
                 multiple="multiple"></select>
       </div>
 
@@ -655,9 +654,9 @@
         <table class="table">
           <thead data-bind="fadeVisible: isFormatEnabled">
             <tr>
-              <td>Label</td>
-              <td>Format</td>
-              <td>&nbsp;</td>
+              <th>Column</th>
+              <th>Format</th>
+              <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>

@@ -23,18 +23,18 @@ Design Spec
 ### Group By
 
 * Only shown if you choose something other than List
-* Title of this is “Categories” if you choose a chart OR “Group By” if you choose an aggregated table
-* A single dropdown to group data - this dropdown should contain list of all data column
+* Title of this is “Categories” if you choose a chart or “Group By” if you choose an aggregated table
+* A single dropdown to group data - this dropdown should contain list of all data columns
 
 ### Columns
 
-* Add a column" button. 
+* "Add a column" button.
 * For each column, a dropdown that lets you choose column titled “Column”
-* "Format" dropdown (only shown if grouping by something) titled “Format”.  
-* Format options are Sum, Average and Count Per Choice
-* If switching from a list to something else, default is Count Per Choice
-* Remove column button  next to each column
-
+* "Format" dropdown (only shown if grouping by something) titled “Format”
+* Format options are "Sum", "Average" and "Count Per Choice"
+* If switching from a list to something else, default is "Count Per Choice"
+* "Remove column" button next to each column
+* To consider: "Add a Column" should be type-ahead suggest (like case management)
 
 
 Source
