@@ -130,8 +130,8 @@ var rbProto = function () {
                             "type": "pie",
                             "chart_id": "-6021326752156782988",
                             "title": null,
-                            "value_column": category_names[0],
-                            "aggregation_column": aggregation_columns[0]["column_id"],
+                            "value_column": aggregation_columns[0]["column_id"],
+                            "aggregation_column": category_names[0],
                         }];
                     }
                     charts.render(chartSpecs, aaData, $('#chart'));
