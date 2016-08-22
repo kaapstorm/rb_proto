@@ -108,11 +108,11 @@ var rbProto = function () {
                     _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled(); }),
                     function (c) { return {"display": c.label, "column_id": c.name}; }
                 );
-                var categories = _.map(
+                var category_names = _.map(
                     _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled() === false; }),
                     function (c) { return c.name; }
                 );
-                if (aggregation_columns.length > 0 && categories.length > 0) {
+                if (aggregation_columns.length > 0 && category_names.length > 0) {
                     var chartSpecs;
                     if (self.selectedGraph() === "multibar") {
                         chartSpecs = [{
@@ -120,7 +120,7 @@ var rbProto = function () {
                             "chart_id": "5221328456932991781",
                             "title": null,
                             "y_axis_columns": aggregation_columns,
-                            "x_axis_column": categories[0],
+                            "x_axis_column": category_names[0],
                             "is_stacked": false,
                             "aggregation_column": null,
                         }];
@@ -130,8 +130,8 @@ var rbProto = function () {
                             "type": "pie",
                             "chart_id": "-6021326752156782988",
                             "title": null,
-                            "value_column": aggregation_columns[0],
-                            "aggregation_column": categories[0],
+                            "value_column": category_names[0],
+                            "aggregation_column": aggregation_columns[0]["column_id"],
                         }];
                     }
                     charts.render(chartSpecs, aaData, $('#chart'));
