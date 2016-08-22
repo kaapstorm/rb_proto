@@ -17,7 +17,7 @@ var rbProto = function () {
         });
     }
 
-    self.ReportColumn = function (column) {
+    self.ReportColumn = function (column, parent) {
         var self = this;
 
         self.name = column["name"];
@@ -25,6 +25,10 @@ var rbProto = function () {
         self.data_type = column["data_type"];
         self.aggregation = ko.observable(column["aggregation"]);
         self.isFormatEnabled = ko.observable(false);
+        // This will preview the chart once per column when the chart type is changed.
+        //self.isFormatEnabled.subscribe(function (newValue) {
+        //    parent.refreshPreview();
+        //});
 
         return self;
     };
@@ -39,7 +43,7 @@ var rbProto = function () {
         self.dataTable = config["dataTable"];
 
         self.selectedColumns = ko.observableArray(_.map(self.columns, function (column) {
-            return new rbProto.ReportColumn(column);
+            return new rbProto.ReportColumn(column, self);
         }));
         self.selectedColumns.subscribe(function (newValue) {
             self.refreshPreview(newValue);
@@ -50,7 +54,7 @@ var rbProto = function () {
             if (newValue === "multibar" || newValue === "pie") {
                 self.groupByHeading("Categories");
                 self.previewChart(true);
-                self.refreshPreview(self.selectedColumns());
+                self.refreshPreview();
             } else {
                 self.previewChart(false);
             }
@@ -82,6 +86,7 @@ var rbProto = function () {
         self.previewChart = ko.observable(false);
 
         self.refreshPreview = function (columns) {
+            columns = typeof columns !== "undefined" ? columns : self.selectedColumns();
             var charts = hqImport('reports_core/js/charts.js');
 
             self.dataTable.destroy();
@@ -131,7 +136,7 @@ var rbProto = function () {
             var column = _.find(self.columns, function (c) {
                 return c["name"] == self.newColumnName();
             });
-            self.selectedColumns.push(new rbProto.ReportColumn(column));
+            self.selectedColumns.push(new rbProto.ReportColumn(column, self));
             self.newColumnName('');
         };
 
