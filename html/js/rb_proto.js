@@ -47,11 +47,17 @@ var rbProto = function () {
 
         self.selectedGraph = ko.observable('list');
         self.selectedGraph.subscribe(function (newValue) {
+            if (newValue === "bar" || newValue === "pie") {
+                self.groupByHeading("Categories");
+            } else if (newValue === "agg") {
+                self.groupByHeading("Group By");
+            }
             self.isGroupByEnabled(newValue !== "list");
             self.setIsFormatEnabled();
         });
 
         self.isGroupByEnabled = ko.observable(false);
+        self.groupByHeading = ko.observable("Group By");
         self.selectedGroupBy = ko.observableArray([]);
         self.selectedGroupBy.subscribe(function (newValue) {
             self.setIsFormatEnabled();

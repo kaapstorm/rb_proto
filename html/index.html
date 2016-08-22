@@ -642,7 +642,7 @@
       </div>
 
       <div id="groupBy" data-bind="fadeVisible: isGroupByEnabled">
-        <h3>Group By</h3>
+        <h3 data-bind="text: groupByHeading"></h3>
         <select data-bind="options: selectedColumns,
                            selectedOptions: selectedGroupBy,
                            optionsText: 'label'"
