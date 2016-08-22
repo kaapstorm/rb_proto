@@ -632,7 +632,7 @@
     <div id="config" class="col-md-4">
 
       <div id="graphSelect">
-        <h3>Type of Chart</h3>
+        <h3>Type of Report</h3>
         <select data-bind="value: selectedGraph">
             <option value="list">List of Items</option>
             <option value="bar">Bar Chart</option>
@@ -696,9 +696,14 @@
 
     </div>
 
-    <div class="col-md-8 well">
-      <h3>Sample Preview</h3>
-      <table id="preview" class="table"></table>
+    <div class="col-md-8">
+      <div class="well">
+        <h3>Sample Preview</h3>
+        <table id="preview" class="table"></table>
+      </div>
+      <div class="well">
+        <div id="chart"></div>
+      </div>
     </div>
     <!-- </rb_proto> -->
 
@@ -752,7 +757,8 @@
     <script src="js/maps_utils.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
-
+    <script src="js/nvd3/lib/d3.v2.js"></script>
+    <script src="js/nvd3/nv.d3.min.js"></script>
 
     <!-- <rb_proto> -->
     <script type="text/javascript" src="js/rb_proto.js"></script>
@@ -786,6 +792,26 @@
           {"name": "Will", "num_ep_feat": 7, "superpower": "survival"}
       ]
 
+      var charts = hqImport('reports_core/js/charts.js');
+      var aaData = [
+          {"sample_choice_question_5c168369": "choice1", "count": 1},
+          {"sample_choice_question_5c168369": "choice2", "count": 2},
+          {"sample_choice_question_5c168369": "choice3", "count": 1},
+      ];
+      var chartSpecs = [
+          {
+              "y_axis_columns": [{"display": "count", "column_id": "count"}],
+              "x_axis_column": "sample_choice_question_5c168369",
+              "title": null,
+              "is_stacked": false,
+              "aggregation_column": null,
+              "chart_id": "5221328456932991781",
+              "type": "multibar"
+          }
+      ];
+
+      charts.render(chartSpecs, aaData, $("#chart"));
+
       $(document).ready(function() {
           var dataTable = $('#preview').DataTable({
               "autoWidth": false,
@@ -804,7 +830,6 @@
       });
     </script>
     <!-- </rb_proto> -->
-
 
 
     </body>
