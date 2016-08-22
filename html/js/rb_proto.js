@@ -50,6 +50,7 @@ var rbProto = function () {
             if (newValue === "multibar" || newValue === "pie") {
                 self.groupByHeading("Categories");
                 self.previewChart(true);
+                self.refreshPreview(self.selectedColumns());
             } else {
                 self.previewChart(false);
             }
@@ -81,6 +82,8 @@ var rbProto = function () {
         self.previewChart = ko.observable(false);
 
         self.refreshPreview = function (columns) {
+            var charts = hqImport('reports_core/js/charts.js');
+
             self.dataTable.destroy();
             $('#preview').empty();
             self.dataTable = $('#preview').DataTable({
@@ -93,7 +96,30 @@ var rbProto = function () {
             });
 
             if (self.selectedGraph() === "multibar" || self.selectedGraph() === "pie") {
-                self.renderChart(self.data, $('#chart'));
+                var aaData = self.data; // TODO: Calculate values to be charted
+
+                var aggregation_columns = _.map(
+                    _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled(); }),
+                    function (c) { return {"display": c.label, "column_id": c.name}; }
+                );
+                var categories = _.map(
+                    _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled() === false; }),
+                    function (c) { return c.name; }
+                );
+                if (aggregation_columns.length > 0 && categories.length > 0) {
+                    var chartSpecs = [
+                        {
+                            "y_axis_columns": aggregation_columns,
+                            "x_axis_column": categories[0],
+                            "title": null,
+                            "is_stacked": false,
+                            "aggregation_column": null,
+                            "chart_id": "5221328456932991781",
+                            "type": self.selectedGraph()
+                        }
+                    ];
+                    charts.render(chartSpecs, aaData, $('#chart'));
+                }
             }
         }
 
@@ -119,27 +145,6 @@ var rbProto = function () {
         self.moreColumns = ko.computed(function () {
             return self.otherColumns().length > 0;
         });
-
-        self.renderChart = function (aaData, chartElement) {
-            var charts = hqImport('reports_core/js/charts.js');
-            var chartSpecs = [
-                {
-                    // Aggregations
-                    "y_axis_columns": [
-                        {"display": "# Household", "column_id": "household_size"}
-                    ],
-                    // Categories
-                    "x_axis_column": "location",
-                    "title": null,
-                    "is_stacked": false,
-                    "aggregation_column": null,
-                    "chart_id": "5221328456932991781",
-                    "type": "multibar"
-                }
-            ];
-
-            charts.render(chartSpecs, aaData, chartElement);
-        };
 
         return self;
     };
