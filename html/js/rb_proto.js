@@ -25,10 +25,9 @@ var rbProto = function () {
         self.data_type = column["data_type"];
         self.aggregation = ko.observable(column["aggregation"]);
         self.isFormatEnabled = ko.observable(false);
-        // This will preview the chart once per column when the chart type is changed.
-        //self.isFormatEnabled.subscribe(function (newValue) {
-        //    parent.refreshPreview();
-        //});
+        self.aggregation.subscribe(function (newValue) {
+            parent.refreshPreview();
+        });
 
         return self;
     };
@@ -54,7 +53,6 @@ var rbProto = function () {
             if (newValue === "multibar" || newValue === "pie") {
                 self.groupByHeading("Categories");
                 self.previewChart(true);
-                self.refreshPreview();
             } else {
                 self.previewChart(false);
             }
@@ -63,6 +61,7 @@ var rbProto = function () {
             }
             self.isGroupByEnabled(newValue !== "list");
             self.setIsFormatEnabled();
+            self.refreshPreview();
         });
 
         self.isGroupByEnabled = ko.observable(false);
@@ -86,9 +85,66 @@ var rbProto = function () {
 
         self.previewChart = ko.observable(false);
 
+        self.sum = function (array) {
+            var sum = 0;
+            _.each(array, function (x) { sum += x; });
+            return sum;
+        };
+
+        self.avg = function (array) {
+            return self.sum(array) / array.length;
+        };
+
+        self.count = function (array) {
+            return array.length;
+        }
+
+        self.getAggData = function () {
+            var aggColumns = _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled(); });
+            var groups = {};
+            // Group all data to be aggregated by group-by columns
+            _.each(self.data, function (row) {
+                // key is a "|"-separated string of values of group-by columns
+                var key = _.map(self.selectedGroupBy(), function (c) { return row[c.name]}).join("|");
+                _.each(aggColumns, function (column) {
+                    if (typeof groups[key] === "undefined") {
+                        groups[key] = {}
+                    }
+                    if (typeof groups[key][column.name] === "undefined") {
+                        groups[key][column.name] = [row[column.name]];
+                    } else {
+                        groups[key][column.name].push(row[column.name]);
+                    }
+                });
+            });
+
+            // Aggregate grouped data
+            var groupByColumnNames = _.map(self.selectedGroupBy(), function (c) { return c.name; });
+            // data is a list of rows, where each row is a column-value object
+            var data = _.map(groups, function (value, key) {
+                // *key* is "|"-separated-values of group-by columns.
+                // *value* an object where keys are aggregation columns and values are lists to be aggregated
+                var keyValues = key.split("|");
+                var row = _.object(groupByColumnNames, keyValues);  // == dict(zip(groupByColumnNames, keyValues))
+                _.each(aggColumns, function (column) {
+                    var array = value[column.name];
+                    var aggValue = {
+                        "avg": self.avg,
+                        "count": self.count,
+                        "sum": self.sum,
+                    }[column.aggregation()](array);
+                    _.extend(row, _.object([[column.name, aggValue]]))
+                });
+                return row;
+            });
+            return data;
+        };
+
         self.refreshPreview = function (columns) {
             columns = typeof columns !== "undefined" ? columns : self.selectedColumns();
             var charts = hqImport('reports_core/js/charts.js');
+
+            var data = self.isFormatEnabled() ? self.getAggData() : self.data;
 
             self.dataTable.destroy();
             $('#preview').empty();
@@ -97,30 +153,30 @@ var rbProto = function () {
                 "ordering": false,
                 "paging": false,
                 "searching": false,
-                "data": rbProto.getRows(self.data, columns),
+                "data": rbProto.getRows(data, columns),
                 "columns": rbProto.getColumnTitles(columns),
             });
 
             if (self.selectedGraph() === "multibar" || self.selectedGraph() === "pie") {
-                var aaData = self.data; // TODO: Calculate values to be charted
+                var aaData = data;
 
-                var aggregation_columns = _.map(
-                    _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled(); }),
-                    function (c) { return {"display": c.label, "column_id": c.name}; }
-                );
-                var category_names = _.map(
+                var aggColumns = _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled(); })
+                var categoryNames = _.map(
                     _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled() === false; }),
                     function (c) { return c.name; }
                 );
-                if (aggregation_columns.length > 0 && category_names.length > 0) {
+                if (aggColumns.length > 0 && categoryNames.length > 0) {
                     var chartSpecs;
                     if (self.selectedGraph() === "multibar") {
+                        var aggColumnsSpec = _.map(aggColumns, function (c) {
+                            return {"display": c.label, "column_id": c.name};
+                        });
                         chartSpecs = [{
                             "type": "multibar",
                             "chart_id": "5221328456932991781",
                             "title": null,
-                            "y_axis_columns": aggregation_columns,
-                            "x_axis_column": category_names[0],
+                            "y_axis_columns": aggColumnsSpec,
+                            "x_axis_column": categoryNames[0],
                             "is_stacked": false,
                             "aggregation_column": null,
                         }];
@@ -130,8 +186,8 @@ var rbProto = function () {
                             "type": "pie",
                             "chart_id": "-6021326752156782988",
                             "title": null,
-                            "value_column": aggregation_columns[0]["column_id"],
-                            "aggregation_column": category_names[0],
+                            "value_column": aggColumns[0].name,
+                            "aggregation_column": categoryNames[0],
                         }];
                     }
                     charts.render(chartSpecs, aaData, $('#chart'));
