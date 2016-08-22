@@ -635,7 +635,7 @@
         <h3>Type of Report</h3>
         <select data-bind="value: selectedGraph">
             <option value="list">List of Items</option>
-            <option value="bar">Bar Chart</option>
+            <option value="multibar">Bar Chart</option>
             <option value="pie">Pie Chart</option>
             <option value="agg">Aggregated Table</option>
         </select>
@@ -697,10 +697,11 @@
 
     <div class="col-md-8">
       <div class="well">
-        <h3>Sample Preview</h3>
+        <h3>Data Table</h3>
         <table id="preview" class="table"></table>
       </div>
-      <div class="well">
+      <div class="well" data-bind="fadeVisible: previewChart">
+        <h3>Chart Preview</h3>
         <div id="chart"></div>
       </div>
     </div>
@@ -770,46 +771,26 @@
               "aggregation": "count",
           },
           {
-              "name": "superpower",
-              "label": "Superpower",
+              "name": "location",
+              "label": "Location",
               "data_type": "text",
               "aggregation": "count",
           },
           {
-              "name": "num_ep_feat",
-              "label": "# Episodes",
+              "name": "household_size",
+              "label": "# Household",
               "data_type": "integer",
               "aggregation": "count",
           }
       ];
 
       var DATA = [
-          {"name": "Dustin", "num_ep_feat": 8, "superpower": "logic"},
-          {"name": "Eleven", "num_ep_feat": 8, "superpower": "psychokinesis"},
-          {"name": "Lucas", "num_ep_feat": 8, "superpower": "courage"},
-          {"name": "Mike", "num_ep_feat": 8, "superpower": "compassion"},
-          {"name": "Will", "num_ep_feat": 7, "superpower": "survival"}
+          {"name": "Cory",   "location": "Oranjezicht",      "household_size": 2},
+          {"name": "Jen",    "location": "Gardens",          "household_size": 2},
+          {"name": "Juan",   "location": "Oranjezicht",      "household_size": 3},
+          {"name": "Manish", "location": "Gardens",          "household_size": 1},
+          {"name": "Simon",  "location": "Harfield Village", "household_size": 3}
       ]
-
-      var charts = hqImport('reports_core/js/charts.js');
-      var aaData = [
-          {"sample_choice_question_5c168369": "choice1", "count": 1},
-          {"sample_choice_question_5c168369": "choice2", "count": 2},
-          {"sample_choice_question_5c168369": "choice3", "count": 1},
-      ];
-      var chartSpecs = [
-          {
-              "y_axis_columns": [{"display": "count", "column_id": "count"}],
-              "x_axis_column": "sample_choice_question_5c168369",
-              "title": null,
-              "is_stacked": false,
-              "aggregation_column": null,
-              "chart_id": "5221328456932991781",
-              "type": "multibar"
-          }
-      ];
-
-      charts.render(chartSpecs, aaData, $("#chart"));
 
       $(document).ready(function() {
           var dataTable = $('#preview').DataTable({

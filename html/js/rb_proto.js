@@ -47,9 +47,13 @@ var rbProto = function () {
 
         self.selectedGraph = ko.observable('list');
         self.selectedGraph.subscribe(function (newValue) {
-            if (newValue === "bar" || newValue === "pie") {
+            if (newValue === "multibar" || newValue === "pie") {
                 self.groupByHeading("Categories");
-            } else if (newValue === "agg") {
+                self.previewChart(true);
+            } else {
+                self.previewChart(false);
+            }
+            if (newValue === "agg") {
                 self.groupByHeading("Group By");
             }
             self.isGroupByEnabled(newValue !== "list");
@@ -74,6 +78,8 @@ var rbProto = function () {
 
         self.newColumnName = ko.observable('');
 
+        self.previewChart = ko.observable(false);
+
         self.refreshPreview = function (columns) {
             self.dataTable.destroy();
             $('#preview').empty();
@@ -85,6 +91,10 @@ var rbProto = function () {
                 "data": rbProto.getRows(self.data, columns),
                 "columns": rbProto.getColumnTitles(columns),
             });
+
+            if (self.selectedGraph() === "multibar" || self.selectedGraph() === "pie") {
+                self.renderChart(self.data, $('#chart'));
+            }
         }
 
         self.removeColumn = function (column) {
@@ -109,6 +119,27 @@ var rbProto = function () {
         self.moreColumns = ko.computed(function () {
             return self.otherColumns().length > 0;
         });
+
+        self.renderChart = function (aaData, chartElement) {
+            var charts = hqImport('reports_core/js/charts.js');
+            var chartSpecs = [
+                {
+                    // Aggregations
+                    "y_axis_columns": [
+                        {"display": "# Household", "column_id": "household_size"}
+                    ],
+                    // Categories
+                    "x_axis_column": "location",
+                    "title": null,
+                    "is_stacked": false,
+                    "aggregation_column": null,
+                    "chart_id": "5221328456932991781",
+                    "type": "multibar"
+                }
+            ];
+
+            charts.render(chartSpecs, aaData, chartElement);
+        };
 
         return self;
     };
