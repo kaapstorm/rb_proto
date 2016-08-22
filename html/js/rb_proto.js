@@ -70,6 +70,7 @@ var rbProto = function () {
         self.selectedGroupBy = ko.observableArray([]);
         self.selectedGroupBy.subscribe(function (newValue) {
             self.setIsFormatEnabled();
+            self.refreshPreview();
         });
 
         self.isFormatEnabled = ko.observable(false);
@@ -112,17 +113,27 @@ var rbProto = function () {
                     function (c) { return c.name; }
                 );
                 if (aggregation_columns.length > 0 && categories.length > 0) {
-                    var chartSpecs = [
-                        {
+                    var chartSpecs;
+                    if (self.selectedGraph() === "multibar") {
+                        chartSpecs = [{
+                            "type": "multibar",
+                            "chart_id": "5221328456932991781",
+                            "title": null,
                             "y_axis_columns": aggregation_columns,
                             "x_axis_column": categories[0],
-                            "title": null,
                             "is_stacked": false,
                             "aggregation_column": null,
-                            "chart_id": "5221328456932991781",
-                            "type": self.selectedGraph()
-                        }
-                    ];
+                        }];
+                    } else {
+                        // pie
+                        chartSpecs = [{
+                            "type": "pie",
+                            "chart_id": "-6021326752156782988",
+                            "title": null,
+                            "value_column": aggregation_columns[0],
+                            "aggregation_column": categories[0],
+                        }];
+                    }
                     charts.render(chartSpecs, aaData, $('#chart'));
                 }
             }
