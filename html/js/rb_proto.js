@@ -87,12 +87,26 @@ var rbProto = function () {
 
         self.sum = function (array) {
             var sum = 0;
-            _.each(array, function (x) { sum += _.isNumber(x) ? x : 0; });
+            try {
+                _.each(array, function (x) {
+                    if (!_.isNumber(x)) {
+                        throw new TypeError('"' + x + '" is not a number.');
+                    }
+                    sum += x;
+                });
+            } catch (err) {
+                return "---";
+            }
             return sum;
         };
 
         self.avg = function (array) {
-            return self.sum(array) / array.length;
+            var sum = self.sum(array);
+            if (_.isNumber(sum)) {
+                return sum / array.length;
+            } else {
+                return "---";
+            }
         };
 
         self.count = function (array) {
