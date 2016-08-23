@@ -87,7 +87,7 @@ var rbProto = function () {
 
         self.sum = function (array) {
             var sum = 0;
-            _.each(array, function (x) { sum += x; });
+            _.each(array, function (x) { sum += _.isNumber(x) ? x : 0; });
             return sum;
         };
 
