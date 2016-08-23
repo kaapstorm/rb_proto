@@ -146,8 +146,11 @@ var rbProto = function () {
 
             var data = self.isFormatEnabled() ? self.getAggData() : self.data;
 
-            self.dataTable.destroy();
             $('#preview').empty();
+            if (columns.length === 0) {
+                return;  // Nothing to do.
+            }
+            self.dataTable.destroy();
             self.dataTable = $('#preview').DataTable({
                 "autoWidth": false,
                 "ordering": false,
