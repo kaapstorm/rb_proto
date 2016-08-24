@@ -176,11 +176,12 @@ var rbProto = function () {
 
             var data = self.isFormatEnabled() ? self.getAggData() : self.data;
 
-            $('#preview').empty();
+            $('#preview').hide();
             if (columns.length === 0) {
                 return;  // Nothing to do.
             }
             self.dataTable.destroy();
+            $('#preview').empty();
             self.dataTable = $('#preview').DataTable({
                 "autoWidth": false,
                 "ordering": false,
@@ -189,6 +190,7 @@ var rbProto = function () {
                 "data": rbProto.getRows(data, columns),
                 "columns": rbProto.getColumnTitles(columns),
             });
+            $('#preview').show();
 
             if (self.selectedGraph() === "multibar" || self.selectedGraph() === "pie") {
                 var aaData = data;
