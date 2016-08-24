@@ -61,41 +61,44 @@ var rbProto = function () {
                 self.groupByHeading("Group By");
             }
             self.isGroupByEnabled(newValue !== "list");
+            if (self.isGroupByEnabled() && !self.selectedGroupByName()) {
+                // Group by the first report column by default
+                var firstColumn = self.selectedColumns().length > 0 ? self.selectedColumns()[0] : self.columns[0];
+                self.selectedGroupByName(firstColumn.name);
+            }
             self.setIsFormatEnabled();
             self.refreshPreview();
         });
 
         self.isGroupByEnabled = ko.observable(false);
         self.groupByHeading = ko.observable("Group By");
-        self.selectedGroupBy = ko.observableArray([]);
-        self.selectedGroupBy.subscribe(function (newValue) {
-            //Determine new columns in report
-            newColumns = [];
-            _.each(newValue, function(col) {
-                newColumns.push(new rbProto.ReportColumn(col, self));
-            });
-            otherColumns = _.filter(self.selectedColumns(), function(col) {
-                return typeof _.find(newColumns, function(nc) {
-                    return nc.name === col.name;
-                }) === "undefined";
-            });
-            all_columns = _.union(newColumns, otherColumns)
-            self.selectedColumns.removeAll();
-            self.selectedColumns.push.apply(self.selectedColumns, all_columns)
-
+        self.selectedGroupByName = ko.observable();
+        self.selectedGroupByName.subscribe(function (newValue) {
+            if (newValue) {  // Check whether it has a value, because the user can unselect group by
+                // Put the group-by column first in the report
+                var selectedColumnNames = _.map(self.selectedColumns(), function (c) { return c.name; });
+                var index = selectedColumnNames.indexOf(newValue);
+                if (index === -1) {
+                    // The column is not in the report. Insert it.
+                    var column = _.find(self.columns, function (c) { return c["name"] === newValue; })
+                    self.selectedColumns.unshift(new rbProto.ReportColumn(column, self))
+                } else if (index > 0) {
+                    // The column is already in the report, but not first. Bump it up.
+                    var column = self.selectedColumns.splice(index, 1)[0];
+                    self.selectedColumns.unshift(column);
+                }
+            }
             self.setIsFormatEnabled();
             self.refreshPreview();
         });
 
         self.isFormatEnabled = ko.observable(false);
         self.setIsFormatEnabled = function () {
-            var isFormatEnabled = self.isGroupByEnabled() && self.selectedGroupBy().length > 0;
+            var isFormatEnabled = self.isGroupByEnabled() && self.selectedGroupByName();
             self.isFormatEnabled(isFormatEnabled);
+            // enable "Format" dropdown for each column that is not the group-by column.
             _.each(self.selectedColumns(), function (column) {
-                column.isFormatEnabled(isFormatEnabled &&
-                typeof _.find(self.selectedGroupBy(), function(g_col) {
-                    return column.name === g_col.name;
-                }) === "undefined");
+                column.isFormatEnabled(isFormatEnabled && column.name !== self.selectedGroupByName());
             });
         };
 
@@ -136,28 +139,23 @@ var rbProto = function () {
             var groups = {};
             // Group all data to be aggregated by group-by columns
             _.each(self.data, function (row) {
-                // key is a "|"-separated string of values of group-by columns
-                var key = _.map(self.selectedGroupBy(), function (c) { return row[c.name]}).join("|");
+                var groupByColumnValue = row[self.selectedGroupByName()];
                 _.each(aggColumns, function (column) {
-                    if (typeof groups[key] === "undefined") {
-                        groups[key] = {}
+                    if (typeof groups[groupByColumnValue] === "undefined") {
+                        groups[groupByColumnValue] = {}
                     }
-                    if (typeof groups[key][column.name] === "undefined") {
-                        groups[key][column.name] = [row[column.name]];
+                    if (typeof groups[groupByColumnValue][column.name] === "undefined") {
+                        groups[groupByColumnValue][column.name] = [row[column.name]];
                     } else {
-                        groups[key][column.name].push(row[column.name]);
+                        groups[groupByColumnValue][column.name].push(row[column.name]);
                     }
                 });
             });
 
-            // Aggregate grouped data
-            var groupByColumnNames = _.map(self.selectedGroupBy(), function (c) { return c.name; });
             // data is a list of rows, where each row is a column-value object
-            var data = _.map(groups, function (value, key) {
-                // *key* is "|"-separated-values of group-by columns.
-                // *value* an object where keys are aggregation columns and values are lists to be aggregated
-                var keyValues = key.split("|");
-                var row = _.object(groupByColumnNames, keyValues);  // == dict(zip(groupByColumnNames, keyValues))
+            var data = _.map(groups, function (value, groupByColumnValue) {
+                // *value* an object where keys are aggregation column names and values are lists to be aggregated
+                var row = _.object([[self.selectedGroupByName(), groupByColumnValue]]);
                 _.each(aggColumns, function (column) {
                     var array = value[column.name];
                     var aggValue = {

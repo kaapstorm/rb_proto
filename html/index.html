@@ -644,10 +644,10 @@
       <div id="groupBy" data-bind="fadeVisible: isGroupByEnabled">
         <h3 data-bind="text: groupByHeading"></h3>
         <select data-bind="options: columns,
-                           selectedOptions: selectedGroupBy,
+                           value: selectedGroupByName,
                            optionsText: 'label',
-						   valueAllowUnset: true"
-                ></select>
+                           optionsValue: 'name',
+                           valueAllowUnset: true"></select>
       </div>
 
       <div id="columns">
