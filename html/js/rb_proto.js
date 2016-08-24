@@ -47,7 +47,7 @@ var rbProto = function () {
         self.selectedColumns.subscribe(function (newValue) {
             self.refreshPreview(newValue);
         });
-		self.selectedColumns.extend({ rateLimit: 50 });
+        self.selectedColumns.extend({ rateLimit: 50 });
 
         self.selectedGraph = ko.observable('list');
         self.selectedGraph.subscribe(function (newValue) {
@@ -69,20 +69,20 @@ var rbProto = function () {
         self.groupByHeading = ko.observable("Group By");
         self.selectedGroupBy = ko.observableArray([]);
         self.selectedGroupBy.subscribe(function (newValue) {
-			//Determine new columns in report
-			newColumns = [];
-			_.each(newValue, function(col) {
-				newColumns.push(new rbProto.ReportColumn(col, self));
-			});	
-			otherColumns = _.filter(self.selectedColumns(), function(col) {
-				return _.find(newColumns, function(nc) {
-					return nc.name == col.name;
-				}) == undefined;
-			});
-			all_columns = _.union(newColumns, otherColumns)
-			self.selectedColumns.removeAll();
-			self.selectedColumns.push.apply(self.selectedColumns, all_columns)
-			
+            //Determine new columns in report
+            newColumns = [];
+            _.each(newValue, function(col) {
+                newColumns.push(new rbProto.ReportColumn(col, self));
+            });
+            otherColumns = _.filter(self.selectedColumns(), function(col) {
+                return _.find(newColumns, function(nc) {
+                    return nc.name == col.name;
+                }) == undefined;
+            });
+            all_columns = _.union(newColumns, otherColumns)
+            self.selectedColumns.removeAll();
+            self.selectedColumns.push.apply(self.selectedColumns, all_columns)
+
             self.setIsFormatEnabled();
             self.refreshPreview();
         });
@@ -93,7 +93,7 @@ var rbProto = function () {
             self.isFormatEnabled(isFormatEnabled);
             _.each(self.selectedColumns(), function (column) {
                 column.isFormatEnabled(isFormatEnabled &&
-				_.find(self.selectedGroupBy(), function(g_col) { return column.name == g_col.name; }) == undefined);
+                _.find(self.selectedGroupBy(), function(g_col) { return column.name == g_col.name; }) == undefined);
             });
         };
 
@@ -194,8 +194,8 @@ var rbProto = function () {
                 var aaData = data;
 
                 var aggColumns = _.filter(self.selectedColumns(), function (c) { 
-					return c.isFormatEnabled() && c.data_type == "integer";
-				})
+                    return c.isFormatEnabled() && c.data_type == "integer";
+                })
                 var categoryNames = _.map(
                     _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled() === false; }),
                     function (c) { return c.name; }
