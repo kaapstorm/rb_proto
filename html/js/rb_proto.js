@@ -75,9 +75,9 @@ var rbProto = function () {
                 newColumns.push(new rbProto.ReportColumn(col, self));
             });
             otherColumns = _.filter(self.selectedColumns(), function(col) {
-                return _.find(newColumns, function(nc) {
-                    return nc.name == col.name;
-                }) == undefined;
+                return typeof _.find(newColumns, function(nc) {
+                    return nc.name === col.name;
+                }) === "undefined";
             });
             all_columns = _.union(newColumns, otherColumns)
             self.selectedColumns.removeAll();
@@ -93,7 +93,9 @@ var rbProto = function () {
             self.isFormatEnabled(isFormatEnabled);
             _.each(self.selectedColumns(), function (column) {
                 column.isFormatEnabled(isFormatEnabled &&
-                _.find(self.selectedGroupBy(), function(g_col) { return column.name == g_col.name; }) == undefined);
+                typeof _.find(self.selectedGroupBy(), function(g_col) {
+                    return column.name === g_col.name;
+                }) === "undefined");
             });
         };
 
@@ -196,7 +198,7 @@ var rbProto = function () {
                 var aaData = data;
 
                 var aggColumns = _.filter(self.selectedColumns(), function (c) { 
-                    return c.isFormatEnabled() && c.data_type == "integer";
+                    return c.isFormatEnabled() && c.data_type === "integer";
                 })
                 var categoryNames = _.map(
                     _.filter(self.selectedColumns(), function (c) { return c.isFormatEnabled() === false; }),
@@ -238,7 +240,7 @@ var rbProto = function () {
 
         self.addColumn = function () {
             var column = _.find(self.columns, function (c) {
-                return c["name"] == self.newColumnName();
+                return c["name"] === self.newColumnName();
             });
             self.selectedColumns.push(new rbProto.ReportColumn(column, self));
             self.newColumnName('');
