@@ -643,10 +643,11 @@
 
       <div id="groupBy" data-bind="fadeVisible: isGroupByEnabled">
         <h3 data-bind="text: groupByHeading"></h3>
-        <select data-bind="options: selectedColumns,
+        <select data-bind="options: columns,
                            selectedOptions: selectedGroupBy,
-                           optionsText: 'label'"
-                multiple="multiple"></select>
+                           optionsText: 'label',
+						   valueAllowUnset: true"
+                ></select>
       </div>
 
       <div id="columns">
@@ -668,7 +669,7 @@
                                    value: aggregation">
                   <option value="sum">Sum</option>
                   <option value="avg">Average</option>
-                  <option value="count">Count Per Choice</option>
+                  <!-- <option value="count">Count Per Choice</option> -->
                 </select>
               </td>
               <td>
