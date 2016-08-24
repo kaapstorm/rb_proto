@@ -60,8 +60,9 @@ var rbProto = function () {
             if (newValue === "agg") {
                 self.groupByHeading("Group By");
             }
+            var wasGroupByEnabled = self.isGroupByEnabled();
             self.isGroupByEnabled(newValue !== "list");
-            if (self.isGroupByEnabled() && !self.selectedGroupByName()) {
+            if (self.isGroupByEnabled() && !wasGroupByEnabled) {
                 // Group by the first report column by default
                 var firstColumn = self.selectedColumns().length > 0 ? self.selectedColumns()[0] : self.columns[0];
                 self.selectedGroupByName(firstColumn.name);
