@@ -132,12 +132,12 @@ hqDefine('reports_core/js/charts.js', function() {
 
             var chart = nv.models.multiBarChart()
                 .transitionDuration(350)
-                .reduceXTicks(true)
-                .rotateLabels(270)  // Seems to be ignored
-                .showControls(false)  // Actually works!
+                .reduceXTicks(false)
+                // .rotateLabels(270)  // Seems to be ignored
+                .showControls(false)
                 .groupSpacing(0.1)
                 .stacked(config.is_stacked || false)
-                .staggerLabels(false)  // Seems to be ignored
+                // .staggerLabels(false)  // Seems to be ignored
             ;
 
             d3.select(svgSelector)
