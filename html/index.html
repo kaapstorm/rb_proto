@@ -23,6 +23,17 @@
         <link rel="stylesheet" href="css/e0d147a2319d.css" type="text/css" media="all">
 
         <script type="text/javascript" src="js/97880d7bbf2b.js"></script>
+
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/core.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/widget.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/mouse.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/position.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/autocomplete.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/draggable.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/droppable.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/menu.min.js"></script>
+        <script src="https://dnwn0mt1jqwp0.cloudfront.net/static/jquery-ui/ui/minified/sortable.min.js"></script>
+
         <script src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/96ad7d739c30.js"></script>
         <style>
@@ -651,14 +662,22 @@
         <table class="table">
           <thead data-bind="fadeVisible: isFormatEnabled">
             <tr>
+              <th>&nbsp;</th>
               <th>Column</th>
               <th>Format</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- ko foreach: selectedColumns -->
+          <tbody data-bind="sortable: {
+                                data: selectedColumns,
+                                afterAdd: function (elem) { $(elem).hide().fadeIn() },
+                                beforeRemove: function (elem) { $(elem).fadeOut() }
+                            }">
             <tr>
+              <td><i class="grip sortable-handle"
+                     data-bind="css: COMMCAREHQ.icons.GRIP,
+                                style: { cursor: 'move' },
+                                event: { mousedown: function () { $(':focus').blur(); } }"></i></td>
               <td data-bind="text: label"></td>
               <td>
                 <select data-bind="fadeVisible: isFormatEnabled,
@@ -678,9 +697,11 @@
                 <!-- /ko -->
               </td>
             </tr>
-            <!-- /ko -->
-            <!-- ko if: moreColumns -->
+          </tbody>
+
+          <tbody data-bind="if: moreColumns">
             <tr>
+              <td>&nbsp;</td>
               <td>
                 <select data-bind="options: otherColumns,
                                    optionsText: 'label',
@@ -688,10 +709,9 @@
                                    value: newColumnName">
                 </select>
               </td>
-              <td></td>
+              <td>&nbsp;</td>
               <td><button class="btn btn-primary" data-bind="click: addColumn"><i class="fa fa-plus"></i></button></td>
             </tr>
-            <!-- /ko -->
           </tbody>
         </table>
       </div>
