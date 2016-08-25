@@ -671,9 +671,12 @@
                   <option value="avg">Average</option>
                   <!-- <option value="count">Count Per Choice</option> -->
                 </select>
+                <span data-bind="fadeVisible: isGroupByColumn">
+                  <i data-bind="text: $parent.groupByColumnStatus"></i>
+                </span>
               </td>
               <td>
-                  <button class="btn btn-danger" data-bind="click: $parent.removeColumn"><i class="fa fa-remove"></i></button>
+                <button class="btn btn-danger" data-bind="click: $parent.removeColumn"><i class="fa fa-remove"></i></button>
               </td>
             </tr>
             <!-- /ko -->

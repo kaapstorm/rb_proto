@@ -25,6 +25,7 @@ var rbProto = function () {
         self.data_type = column["data_type"];
         self.aggregation = ko.observable(column["aggregation"]);
         self.isFormatEnabled = ko.observable(false);
+        self.isGroupByColumn = ko.observable(false);
         self.aggregation.subscribe(function (newValue) {
             parent.refreshPreview();
         });
@@ -53,12 +54,14 @@ var rbProto = function () {
         self.selectedGraph.subscribe(function (newValue) {
             if (newValue === "multibar" || newValue === "pie") {
                 self.groupByHeading("Categories");
+                self.groupByColumnStatus("Category");
                 self.previewChart(true);
             } else {
                 self.previewChart(false);
             }
             if (newValue === "agg") {
                 self.groupByHeading("Group By");
+                self.groupByColumnStatus("Grouped By");
             }
             var wasGroupByEnabled = self.isGroupByEnabled();
             self.isGroupByEnabled(newValue !== "list");
@@ -73,6 +76,7 @@ var rbProto = function () {
 
         self.isGroupByEnabled = ko.observable(false);
         self.groupByHeading = ko.observable("Group By");
+        self.groupByColumnStatus = ko.observable("Grouped By");
         self.selectedGroupByName = ko.observable();
         self.selectedGroupByName.subscribe(function (newValue) {
             if (newValue) {  // Check whether it has a value, because the user can unselect group by
@@ -100,6 +104,7 @@ var rbProto = function () {
             // enable "Format" dropdown for each column that is not the group-by column.
             _.each(self.selectedColumns(), function (column) {
                 column.isFormatEnabled(isFormatEnabled && column.name !== self.selectedGroupByName());
+                column.isGroupByColumn(isFormatEnabled && column.name === self.selectedGroupByName());
             });
         };
 
