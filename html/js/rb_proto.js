@@ -247,6 +247,7 @@ var rbProto = function () {
                 return c["name"] === self.newColumnName();
             });
             self.selectedColumns.push(new rbProto.ReportColumn(column, self));
+            self.setIsFormatEnabled();
             self.newColumnName('');
         };
 
