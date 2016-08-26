@@ -674,7 +674,10 @@
                 </span>
               </td>
               <td>
-                <button class="btn btn-danger" data-bind="click: $parent.removeColumn"><i class="fa fa-remove"></i></button>
+                <!-- ko ifnot: isGroupByColumn -->
+                <button class="btn btn-danger"
+                        data-bind="click: $parent.removeColumn"><i class="fa fa-remove"></i></button>
+                <!-- /ko -->
               </td>
             </tr>
             <!-- /ko -->
