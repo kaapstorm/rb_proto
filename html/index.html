@@ -668,16 +668,9 @@
               <th>&nbsp;</th>
             </tr>
           </thead>
-          <tbody data-bind="sortable: {
-                                data: selectedColumns,
-                                afterAdd: function (elem) { $(elem).hide().fadeIn() },
-                                beforeRemove: function (elem) { $(elem).fadeOut() }
-                            }">
-            <tr>
-              <td><i class="grip sortable-handle"
-                     data-bind="css: COMMCAREHQ.icons.GRIP,
-                                style: { cursor: 'move' },
-                                event: { mousedown: function () { $(':focus').blur(); } }"></i></td>
+          <tbody data-bind="sortable: selectedColumns">
+            <tr data-bind="attr: {'data-order': _sortableOrder}">
+                <td><i class="fa fa-arrows-v sortable-handle" data-bind="style: {cursor: 'move'}"></i></td>
               <td data-bind="text: label"></td>
               <td>
                 <select data-bind="fadeVisible: isFormatEnabled,
