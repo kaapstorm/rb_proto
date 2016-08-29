@@ -628,7 +628,7 @@
 
     <!-- <rb_proto> -->
     <div id="config" class="col-md-4">
-
+      <legend>Configure Report</legend>
       <div>
         <h3>Type of Report</h3>
         <select data-bind="value: reportType">
@@ -708,6 +708,7 @@
     </div>
 
     <div class="col-md-8">
+      <legend>Preview Report</legend>
       <div class="well">
         <h3>Data Table</h3>
         <table id="preview" class="table"></table>
@@ -778,31 +779,338 @@
     <script type="text/javascript">
       var COLUMNS = [
           {
-              "name": "name",
-              "label": "Name",
+              "name": "region",
+              "label": "Region",
               "data_type": "text",
-              "aggregation": "count",
+              "aggregation": "sum",
           },
           {
-              "name": "location",
-              "label": "Location",
+              "name": "farmer",
+              "label": "Farmer",
               "data_type": "text",
-              "aggregation": "count",
+              "aggregation": "sum",
+          },
+		  {
+              "name": "plot_code",
+              "label": "Plot Code",
+              "data_type": "text",
+              "aggregation": "sum",
+          },
+		  {
+              "name": "crop",
+              "label": "Crop",
+              "data_type": "text",
+              "aggregation": "sum",
+          },
+		  {
+              "name": "crop_yield",
+              "label": "Crop Yield (kg)",
+              "data_type": "integer",
+              "aggregation": "sum",
+          },
+		  {
+              "name": "revenue",
+              "label": "Revenue ($)",
+              "data_type": "integer",
+              "aggregation": "sum",
           },
           {
-              "name": "household_size",
-              "label": "# Household",
+              "name": "count",
+              "label": "Number of Plots",
               "data_type": "integer",
               "aggregation": "count",
           }
       ];
 
       var DATA = [
-          {"name": "Cory",   "location": "Oranjezicht",      "household_size": 2},
-          {"name": "Jen",    "location": "Gardens",          "household_size": 2},
-          {"name": "Juan",   "location": "Oranjezicht",      "household_size": 3},
-          {"name": "Manish", "location": "Gardens",          "household_size": 1},
-          {"name": "Simon",  "location": "Harfield Village", "household_size": 3}
+          {
+            "region": "Massachusetts",
+            "farmer": "Ben",
+            "plot_code": "P93318",
+            "crop": "Barley",
+            "crop_yield": 33,
+            "revenue": 363,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Ben",
+            "plot_code": "P41427",
+            "crop": "Barley",
+            "crop_yield": 14,
+            "revenue": 154,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Ben",
+            "plot_code": "P68650",
+            "crop": "Maize",
+            "crop_yield": 14,
+            "revenue": 196,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Ben",
+            "plot_code": "P57826",
+            "crop": "Ghost Peppers",
+            "crop_yield": 15,
+            "revenue": 225,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Andrea",
+            "plot_code": "P53984",
+            "crop": "Ghost Peppers",
+            "crop_yield": 23,
+            "revenue": 322,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Andrea",
+            "plot_code": "P3653",
+            "crop": "Ghost Peppers",
+            "crop_yield": 33,
+            "revenue": 429,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Andrea",
+            "plot_code": "P71120",
+            "crop": "Ghost Peppers",
+            "crop_yield": 28,
+            "revenue": 420,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Andrea",
+            "plot_code": "P99787",
+            "crop": "Barley",
+            "crop_yield": 30,
+            "revenue": 300,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Andrea",
+            "plot_code": "P69534",
+            "crop": "Barley",
+            "crop_yield": 18,
+            "revenue": 270,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sheel",
+            "plot_code": "P78662",
+            "crop": "Maize",
+            "crop_yield": 11,
+            "revenue": 132,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sheel",
+            "plot_code": "P95823",
+            "crop": "Barley",
+            "crop_yield": 13,
+            "revenue": 182,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sheel",
+            "plot_code": "P155",
+            "crop": "Ghost Peppers",
+            "crop_yield": 25,
+            "revenue": 275,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sunny",
+            "plot_code": "P12485",
+            "crop": "Maize",
+            "crop_yield": 22,
+            "revenue": 330,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sunny",
+            "plot_code": "P46991",
+            "crop": "Maize",
+            "crop_yield": 19,
+            "revenue": 247,
+            "count": 1
+          },
+          {
+            "region": "Massachusetts",
+            "farmer": "Sunny",
+            "plot_code": "P8952",
+            "crop": "Maize",
+            "crop_yield": 22,
+            "revenue": 242,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P79924",
+            "crop": "Barley",
+            "crop_yield": 33,
+            "revenue": 330,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P84603",
+            "crop": "Barley",
+            "crop_yield": 28,
+            "revenue": 336,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P88494",
+            "crop": "Barley",
+            "crop_yield": 12,
+            "revenue": 180,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P28698",
+            "crop": "Barley",
+            "crop_yield": 25,
+            "revenue": 325,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P12034",
+            "crop": "Maize",
+            "crop_yield": 27,
+            "revenue": 270,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Christina",
+            "plot_code": "P53381",
+            "crop": "Maize",
+            "crop_yield": 18,
+            "revenue": 198,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Samantha",
+            "plot_code": "P58430",
+            "crop": "Ghost Peppers",
+            "crop_yield": 26,
+            "revenue": 338,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Samantha",
+            "plot_code": "P46668",
+            "crop": "Ghost Peppers",
+            "crop_yield": 16,
+            "revenue": 160,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Samantha",
+            "plot_code": "P51156",
+            "crop": "Maize",
+            "crop_yield": 34,
+            "revenue": 510,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Samantha",
+            "plot_code": "P58543",
+            "crop": "Barley",
+            "crop_yield": 12,
+            "revenue": 120,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Samantha",
+            "plot_code": "P22753",
+            "crop": "Barley",
+            "crop_yield": 20,
+            "revenue": 240,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P87361",
+            "crop": "Maize",
+            "crop_yield": 30,
+            "revenue": 360,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P26930",
+            "crop": "Barley",
+            "crop_yield": 11,
+            "revenue": 110,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P12838",
+            "crop": "Barley",
+            "crop_yield": 32,
+            "revenue": 448,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P37501",
+            "crop": "Ghost Peppers",
+            "crop_yield": 31,
+            "revenue": 465,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P55121",
+            "crop": "Maize",
+            "crop_yield": 19,
+            "revenue": 247,
+            "count": 1
+          },
+          {
+            "region": "New Hampshire",
+            "farmer": "Kaley",
+            "plot_code": "P85549",
+            "crop": "Ghost Peppers",
+            "crop_yield": 20,
+            "revenue": 300,
+            "count": 1
+          }
       ]
 
       $(document).ready(function() {
