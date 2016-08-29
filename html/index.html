@@ -629,13 +629,11 @@
     <!-- <rb_proto> -->
     <div id="config" class="col-md-4">
 
-      <div id="graphSelect">
+      <div>
         <h3>Type of Report</h3>
-        <select data-bind="value: selectedGraph">
+        <select data-bind="value: reportType">
             <option value="list">List of Items</option>
-            <option value="multibar">Bar Chart</option>
-            <option value="pie">Pie Chart</option>
-            <option value="agg">Aggregated Table</option>
+            <option value="agg">Summarized Data</option>
         </select>
       </div>
 
@@ -696,6 +694,15 @@
             <!-- /ko -->
           </tbody>
         </table>
+      </div>
+
+      <div data-bind="fadeVisible: isGroupByEnabled">
+        <h3>Chart</h3>
+        <select data-bind="value: selectedChart">
+            <option value="none">(None)</option>
+            <option value="bar">Bar</option>
+            <option value="pie">Pie</option>
+        </select>
       </div>
 
     </div>

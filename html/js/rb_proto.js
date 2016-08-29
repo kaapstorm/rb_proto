@@ -50,21 +50,11 @@ var rbProto = function () {
         });
         self.selectedColumns.extend({ rateLimit: 50 });
 
-        self.selectedGraph = ko.observable('list');
-        self.selectedGraph.subscribe(function (newValue) {
-            if (newValue === "multibar" || newValue === "pie") {
-                self.groupByHeading("Categories");
-                self.groupByColumnStatus("Category");
-                self.previewChart(true);
-            } else {
-                self.previewChart(false);
-            }
-            if (newValue === "agg") {
-                self.groupByHeading("Group By");
-                self.groupByColumnStatus("Grouped By");
-            }
+        self.reportType = ko.observable('list');
+        self.reportType.subscribe(function (newValue) {
             var wasGroupByEnabled = self.isGroupByEnabled();
-            self.isGroupByEnabled(newValue !== "list");
+            self.isGroupByEnabled(newValue === "agg");
+            self.previewChart(newValue === "agg" && self.selectedChart() !== "none");
             if (self.isGroupByEnabled() && !wasGroupByEnabled) {
                 // Group by the first report column by default
                 var firstColumn = self.selectedColumns().length > 0 ? self.selectedColumns()[0] : self.columns[0];
@@ -109,6 +99,20 @@ var rbProto = function () {
         };
 
         self.newColumnName = ko.observable('');
+
+        self.selectedChart = ko.observable('none');
+        self.selectedChart.subscribe(function (newValue) {
+            if (newValue === "none") {
+                self.groupByHeading("Group By");
+                self.groupByColumnStatus("Grouped By");
+                self.previewChart(false);
+            } else {
+                self.groupByHeading("Categories");
+                self.groupByColumnStatus("Category");
+                self.previewChart(true);
+                self.refreshPreview();
+            }
+        });
 
         self.previewChart = ko.observable(false);
 
@@ -198,7 +202,7 @@ var rbProto = function () {
             });
             $('#preview').show();
 
-            if (self.selectedGraph() === "multibar" || self.selectedGraph() === "pie") {
+            if (self.selectedChart() !== "none") {
                 var aaData = data;
 
                 var aggColumns = _.filter(self.selectedColumns(), function (c) { 
@@ -210,7 +214,7 @@ var rbProto = function () {
                 );
                 if (aggColumns.length > 0 && categoryNames.length > 0) {
                     var chartSpecs;
-                    if (self.selectedGraph() === "multibar") {
+                    if (self.selectedChart() === "bar") {
                         var aggColumnsSpec = _.map(aggColumns, function (c) {
                             return {"display": c.label, "column_id": c.name};
                         });
