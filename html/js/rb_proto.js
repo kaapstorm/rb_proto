@@ -2,10 +2,16 @@
 var rbProto = function () {
     var self = this;
 
-    self.getColumnTitles = function (columns) {
-        return _.map(columns, function (column) {
-            return {"title": column["label"]};
+    self.getColumnSpecs = function (columns, reportType) {
+        var specs = _.map(columns, function (column) {
+            return {
+                "title": column["label"]
+            };
         });
+        if (reportType === "agg") {
+            specs[0]['className'] = 'last-aggregated-column';
+        }
+        return specs;
     };
 
     self.getRows = function (data, columns) {
@@ -13,9 +19,11 @@ var rbProto = function () {
             return column["name"];
         });
         return _.map(data, function (dict) {
-            return _.values(_.pick(dict, columnNames));
-        });
-    }
+            return _.map(columnNames, function(columnName) {
+                return dict[columnName];
+            });
+        }).sort();
+    };
 
     self.ReportColumn = function (column, parent) {
         var self = this;
@@ -190,7 +198,9 @@ var rbProto = function () {
             if (columns.length === 0) {
                 return;  // Nothing to do.
             }
-            self.dataTable.destroy();
+            if (self.dataTable) {
+                self.dataTable.destroy();
+            }
             $('#preview').empty();
             self.dataTable = $('#preview').DataTable({
                 "autoWidth": false,
@@ -198,7 +208,7 @@ var rbProto = function () {
                 "paging": false,
                 "searching": false,
                 "data": rbProto.getRows(data, columns),
-                "columns": rbProto.getColumnTitles(columns),
+                "columns": rbProto.getColumnSpecs(columns, self.reportType()),
             });
             $('#preview').show();
 

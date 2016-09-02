@@ -30,6 +30,13 @@
                 height: 500px;
             }
         </style>
+        <style>
+            .last-aggregated-column {
+                border-right-width: 2px;
+                border-right-style: solid;
+                border-right-color: rgb(221, 221, 221);
+            }
+        </style>
     </head>
     <body>
         <!-- .hide used for A/B test of account creation page -->
@@ -632,7 +639,7 @@
       <div>
         <h3>Type of Report</h3>
         <select data-bind="value: reportType">
-            <option value="list">List of Items</option>
+            <option value="list">Case List</option>
             <option value="agg">Summarized Data</option>
         </select>
       </div>
@@ -647,17 +654,18 @@
       </div>
 
       <div id="columns">
-        <h3>Columns</h3>
+        <h3 data-bind="text: reportType() === 'agg' ?  'Indicators' : 'Columns'">Columns</h3>
         <table class="table">
           <thead data-bind="fadeVisible: isFormatEnabled">
             <tr>
-              <th>Column</th>
+              <th>Indicator</th>
               <th>Format</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <!-- ko foreach: selectedColumns -->
+            <!-- ko ifnot: isGroupByColumn -->
             <tr>
               <td data-bind="text: label"></td>
               <td>
@@ -679,10 +687,10 @@
               </td>
             </tr>
             <!-- /ko -->
-            <!-- ko if: moreColumns -->
+            <!-- /ko -->
             <tr>
               <td>
-                <select data-bind="options: otherColumns,
+                <select data-bind="options: columns,
                                    optionsText: 'label',
                                    optionsValue: 'name',
                                    value: newColumnName">
@@ -691,31 +699,42 @@
               <td></td>
               <td><button class="btn btn-primary" data-bind="click: addColumn"><i class="fa fa-plus"></i></button></td>
             </tr>
-            <!-- /ko -->
           </tbody>
         </table>
       </div>
-
-      <div data-bind="fadeVisible: isGroupByEnabled">
-        <h3>Chart</h3>
-        <select data-bind="value: selectedChart">
-            <option value="none">(None)</option>
-            <option value="bar">Bar</option>
-            <option value="pie">Pie</option>
-        </select>
-      </div>
-
     </div>
 
     <div class="col-md-8">
-      <legend>Preview Report</legend>
+        <legend>Preview Report</legend>
+
+        <!-- ko if: selectedChart() === 'none' -->
+        <div data-bind="fadeVisible: isGroupByEnabled">
+            <div class="btn btn-primary" data-bind="click: function(){selectedChart('bar');}">Add Chart</div>
+            <div> <!-- I'm so lazy... -->
+                <br>
+            </div>
+        </div>
+        <!-- /ko -->
+
+      <div class="well" data-bind="fadeVisible: previewChart">
+
+        <h3 style="display: inline-block">Chart Preview</h3>
+        <div class="pull-right">
+          <div class="btn btn-danger" data-bind="click: function(){selectedChart('none');}"><i class="fa fa-remove"></i></div>
+        </div>
+        <div data-bind="if: selectedChart() !== 'none'">
+            Type:
+            <select data-bind="value: selectedChart">
+                <option value="bar">Bar</option>
+                <option value="pie">Pie</option>
+            </select>
+        </div>
+
+        <div id="chart"></div>
+      </div>
       <div class="well">
         <h3>Data Table</h3>
         <table id="preview" class="table"></table>
-      </div>
-      <div class="well" data-bind="fadeVisible: previewChart">
-        <h3>Chart Preview</h3>
-        <div id="chart"></div>
       </div>
     </div>
     <!-- </rb_proto> -->
@@ -770,7 +789,7 @@
         <script src="js/leaflet.js"></script>
         <script src="js/maps_utils.js"></script>
         <script src="js/main.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.js"></script>
         <script src="js/nvd3/lib/d3.v2.js"></script>
         <script src="js/nvd3/nv.d3.min.js"></script>
 
@@ -1114,18 +1133,9 @@
       ]
 
       $(document).ready(function() {
-          var dataTable = $('#preview').DataTable({
-              "autoWidth": false,
-              "ordering": false,
-              "paging": false,
-              "searching": false,
-              "data": rbProto.getRows(DATA, COLUMNS),
-              "columns": rbProto.getColumnTitles(COLUMNS),
-          });
           var reportConfig = new rbProto.ReportConfig({
               "columns": COLUMNS,
               "data": DATA,
-              "dataTable": dataTable,
           });
           ko.applyBindings(reportConfig);
       });
