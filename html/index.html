@@ -679,10 +679,9 @@
               </td>
             </tr>
             <!-- /ko -->
-            <!-- ko if: moreColumns -->
             <tr>
               <td>
-                <select data-bind="options: otherColumns,
+                <select data-bind="options: columns,
                                    optionsText: 'label',
                                    optionsValue: 'name',
                                    value: newColumnName">
@@ -691,7 +690,6 @@
               <td></td>
               <td><button class="btn btn-primary" data-bind="click: addColumn"><i class="fa fa-plus"></i></button></td>
             </tr>
-            <!-- /ko -->
           </tbody>
         </table>
       </div>

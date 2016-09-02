@@ -13,9 +13,11 @@ var rbProto = function () {
             return column["name"];
         });
         return _.map(data, function (dict) {
-            return _.values(_.pick(dict, columnNames));
+            return _.map(columnNames, function(columnName) {
+                return dict[columnName];
+            });
         });
-    }
+    };
 
     self.ReportColumn = function (column, parent) {
         var self = this;
