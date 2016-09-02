@@ -22,7 +22,7 @@ var rbProto = function () {
             return _.map(columnNames, function(columnName) {
                 return dict[columnName];
             });
-        });
+        }).sort();
     };
 
     self.ReportColumn = function (column, parent) {
