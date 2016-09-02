@@ -1112,18 +1112,9 @@
       ]
 
       $(document).ready(function() {
-          var dataTable = $('#preview').DataTable({
-              "autoWidth": false,
-              "ordering": false,
-              "paging": false,
-              "searching": false,
-              "data": rbProto.getRows(DATA, COLUMNS),
-              "columns": rbProto.getColumnTitles(COLUMNS),
-          });
           var reportConfig = new rbProto.ReportConfig({
               "columns": COLUMNS,
               "data": DATA,
-              "dataTable": dataTable,
           });
           ko.applyBindings(reportConfig);
       });

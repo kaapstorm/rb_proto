@@ -192,7 +192,9 @@ var rbProto = function () {
             if (columns.length === 0) {
                 return;  // Nothing to do.
             }
-            self.dataTable.destroy();
+            if (self.dataTable) {
+                self.dataTable.destroy();
+            }
             $('#preview').empty();
             self.dataTable = $('#preview').DataTable({
                 "autoWidth": false,
