@@ -2,10 +2,16 @@
 var rbProto = function () {
     var self = this;
 
-    self.getColumnTitles = function (columns) {
-        return _.map(columns, function (column) {
-            return {"title": column["label"]};
+    self.getColumnSpecs = function (columns, reportType) {
+        var specs = _.map(columns, function (column) {
+            return {
+                "title": column["label"]
+            };
         });
+        if (reportType === "agg") {
+            specs[0]['className'] = 'last-aggregated-column';
+        }
+        return specs;
     };
 
     self.getRows = function (data, columns) {
@@ -202,7 +208,7 @@ var rbProto = function () {
                 "paging": false,
                 "searching": false,
                 "data": rbProto.getRows(data, columns),
-                "columns": rbProto.getColumnTitles(columns),
+                "columns": rbProto.getColumnSpecs(columns, self.reportType()),
             });
             $('#preview').show();
 
