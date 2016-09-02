@@ -654,11 +654,11 @@
       </div>
 
       <div id="columns">
-        <h3>Columns</h3>
+        <h3 data-bind="text: reportType() === 'agg' ?  'Indicators' : 'Columns'">Columns</h3>
         <table class="table">
           <thead data-bind="fadeVisible: isFormatEnabled">
             <tr>
-              <th>Column</th>
+              <th>Indicator</th>
               <th>Format</th>
               <th>&nbsp;</th>
             </tr>
